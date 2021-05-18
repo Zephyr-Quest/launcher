@@ -13,10 +13,11 @@ let y = canvas.getAttribute('height') / 2;
 let alive = true;
 let state
     /*! ODD NUMBER FOR THE MAP LENGHT !*/
-let mapLenght = 25;
+let mapLenght = 15;
 let sizeOfCircle = (x / mapLenght) - 2;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
+let wait = 0
 
 /**
  * !Game settings
@@ -30,10 +31,10 @@ var game = {
 var player = {
     cooX: (mapLenght - 1) / 2 + 1,
     cooY: (mapLenght - 1) / 2 + 1,
-    x: x,
+    x: x - 10,
     y: y,
-    radius: sizeOfCircle,
-    moveSize: sizeOfCircle * 2 + 4,
+    radius: 45,
+    moveSize: 100,
     left: false,
     forward: false,
     right: false,
@@ -54,8 +55,9 @@ var downKey = 40;
  */
 
 $(window).keydown(function(e) { // Key pushed
+    if (this.className === 'hold') { return false; }
+    this.className = 'hold';
     var keyCode = e.keyCode;
-
     if (keyCode == leftKey) {
         player.left = true;
         player.right = false;
@@ -77,11 +79,13 @@ $(window).keydown(function(e) { // Key pushed
         player.backward = true;
         player.forward = false;
     }
+
     updateStageObject()
 });
 
 
 $(window).keyup(function(e) { // Key stop push
+    this.className = '';
     var keyCode = e.keyCode;
     if (keyCode == leftKey) {
         player.left = false;
