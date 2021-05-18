@@ -15,4 +15,10 @@ canvas {
   background-size: cover;
   margin: 12.5vh calc(50vw - 37.5vh - 10px);
 }
+
+#play_button {
+  margin: 0;
+  width: 10%;
+  position: absolute;
+}
 /*# sourceMappingURL=style.css.map */

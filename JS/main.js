@@ -1,16 +1,12 @@
-window.onload = () => {
-    init()
-}
-
 /**
  *  !Global Var
  */
-
 
 let canvas = document.getElementById('myCanvas')
 let x = canvas.getAttribute('width') / 2;
 let y = canvas.getAttribute('height') / 2;
 let alive = true;
+let playing = false
 let state
     /*! ODD NUMBER FOR THE MAP LENGHT !*/
 let mapLenght = 15;
@@ -18,11 +14,15 @@ let sizeOfCircle = (x / mapLenght) - 2;
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 let wait = 0
+let wall
 
 /**
  * !Game settings
  */
 
+var light = {
+    width: Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * 4,
+}
 var game = {
     lenght: mapLenght,
     bcc: "white",
@@ -55,6 +55,7 @@ var downKey = 40;
  */
 
 $(window).keydown(function(e) { // Key pushed
+    if (alive == false || playing == false) { return false }
     if (this.className === 'hold') { return false; }
     this.className = 'hold';
     var keyCode = e.keyCode;
@@ -78,30 +79,31 @@ $(window).keydown(function(e) { // Key pushed
         player.right = false;
         player.backward = true;
         player.forward = false;
-    }
+    } else { return false }
 
     updateStageObject()
 });
 
-
 $(window).keyup(function(e) { // Key stop push
+    if (alive == false || playing == false) { return false }
     this.className = '';
     var keyCode = e.keyCode;
     if (keyCode == leftKey) {
         player.left = false;
+        drawPlayerWait('left', player.x, player.y)
     } else if (keyCode == upKey) {
         player.forward = false;
+        drawPlayerWait('forward', player.x, player.y)
     } else if (keyCode == rightKey) {
         player.right = false;
+        drawPlayerWait('right', player.x, player.y)
     } else if (keyCode == downKey) {
         player.backward = false;
+        drawPlayerWait('backward', player.x, player.y)
     }
+
 })
 
-function init() {
-    state = 0;
-    drawPlayer('img/forward/character_stopped.png', player.x, player.y)
-}
 
 /**
  * !ANIMATION PLAYER
@@ -123,6 +125,16 @@ function drawPlayer(url, x, y) {
     const image = new Image();
     image.src = url;
     image.onload = () => {
+        lightsOnPlayer()
+        ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
+    }
+}
+
+function drawPlayerWait(goTo, x, y) {
+    ctx.clearRect(player.x - player.radius - 2, player.y - player.radius - 2, player.radius * 2, player.radius * 2);
+    const image = new Image();
+    image.src = 'img/' + goTo + '/character_stopped.png';
+    image.onload = () => {
         ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
     }
 }
@@ -132,9 +144,6 @@ function clearPreviousPosition() {
 }
 
 function drawPlayerInDaGame(goTo) {
-    ctx.save();
-    ctx.rotate(Math.PI);
-
     switch (state) {
         case 1:
             drawPlayer('img/' + goTo + '/character_moving_left.png', player.x, player.y)
@@ -144,34 +153,30 @@ function drawPlayerInDaGame(goTo) {
             drawPlayer('img/' + goTo + '/character_moving_right.png', player.x, player.y)
             break;
     }
-    ctx.restore();
 }
-
 
 /**
  * !UPDATE OF THE MOVEMENT
  */
 
-
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        clearPreviousPosition()
         animationChoose()
+        clearPreviousPosition()
         player.x -= player.moveSize;
         player.cooX -= 1;
         drawPlayerInDaGame('left');
-
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
-        clearPreviousPosition()
         animationChoose()
+        clearPreviousPosition()
         player.x += player.moveSize;
         player.cooX += 1;
         drawPlayerInDaGame('right');
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        clearPreviousPosition()
         animationChoose()
+        clearPreviousPosition()
         player.y -= player.moveSize;
         player.cooY -= 1;
         drawPlayerInDaGame('forward');
@@ -183,4 +188,82 @@ function updateStageObject() {
         player.cooY += 1;
         drawPlayerInDaGame('backward');
     }
+
+}
+
+/**
+ * !MODE ATTENTE
+ */
+
+function waitingBeforeStart() {
+    ctx.clearRect(player.x - x / 2 / 2, player.y - y / 2, x, y);
+    const image = new Image();
+    image.src = 'img/forward/character_stopped.png';
+    image.onload = () => {
+        ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
+    }
+}
+waitingBeforeStart()
+
+
+/**
+ * !BEGIN GAME
+ */
+
+function start() {
+    for (let index = light.width; index >= 400; index -= 20) {
+        setTimeout(() => {
+            light.width = index
+            state = 0;
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, 2 * x, 2 * y);
+            const image = new Image();
+            image.src = 'img/Cercle.png';
+            ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
+            ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
+            ctx.stroke();
+            gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(1, "black");
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.stroke();
+            const img = new Image();
+            img.src = 'img/forward/character_stopped.png';
+            ctx.drawImage(img, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
+        }, 200);
+    }
+
+}
+document.getElementById("play_button").addEventListener("click", init);
+
+function init() {
+    document.getElementById("play_button").style.display = "none"
+    alive = true;
+    playing = true
+    start()
+}
+
+/**
+ * !GESTION DES LUMIERES
+ */
+
+function lightsOnPlayer() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, 2 * x, 2 * y);
+    const image = new Image();
+    image.src = 'img/Cercle.png';
+    ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
+    ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
+
+    gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+    gradient.addColorStop(0, "transparent");
+    gradient.addColorStop(1, "black");
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.stroke();
 }
