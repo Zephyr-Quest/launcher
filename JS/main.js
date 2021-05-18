@@ -58,12 +58,24 @@ $(window).keydown(function(e) { // Key pushed
 
     if (keyCode == leftKey) {
         player.left = true;
+        player.right = false;
+        player.backward = false;
+        player.forward = false;
     } else if (keyCode == upKey) {
+        player.left = false;
+        player.right = false;
+        player.backward = false;
         player.forward = true;
     } else if (keyCode == rightKey) {
+        player.left = false;
         player.right = true;
+        player.backward = false;
+        player.forward = false;
     } else if (keyCode == downKey) {
+        player.left = false;
+        player.right = false;
         player.backward = true;
+        player.forward = false;
     }
     updateStageObject()
 });
@@ -84,7 +96,7 @@ $(window).keyup(function(e) { // Key stop push
 
 function init() {
     state = 0;
-    drawPlayer('img/character_stopped.png', player.x, player.y)
+    drawPlayer('img/forward/character_stopped.png', player.x, player.y)
 }
 
 /**
@@ -115,16 +127,20 @@ function clearPreviousPosition() {
     ctx.clearRect(player.x - player.radius - 2, player.y - player.radius - 2, player.radius * 2, player.radius * 2);
 }
 
-function drawPlayerInDaGame() {
+function drawPlayerInDaGame(goTo) {
+    ctx.save();
+    ctx.rotate(Math.PI);
+
     switch (state) {
         case 1:
-            drawPlayer('img/character_moving_left.png', player.x, player.y)
+            drawPlayer('img/' + goTo + '/character_moving_left.png', player.x, player.y)
             break;
 
         case 2:
-            drawPlayer('img/character_moving_right.png', player.x, player.y)
+            drawPlayer('img/' + goTo + '/character_moving_right.png', player.x, player.y)
             break;
     }
+    ctx.restore();
 }
 
 
@@ -139,7 +155,7 @@ function updateStageObject() {
         animationChoose()
         player.x -= player.moveSize;
         player.cooX -= 1;
-        drawPlayerInDaGame();
+        drawPlayerInDaGame('left');
 
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
@@ -147,20 +163,20 @@ function updateStageObject() {
         animationChoose()
         player.x += player.moveSize;
         player.cooX += 1;
-        drawPlayerInDaGame();
+        drawPlayerInDaGame('right');
     }
     if (player.forward && player.y - player.moveSize > 0) {
         clearPreviousPosition()
         animationChoose()
         player.y -= player.moveSize;
         player.cooY -= 1;
-        drawPlayerInDaGame();
+        drawPlayerInDaGame('forward');
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
         clearPreviousPosition()
         animationChoose()
         player.y += player.moveSize;
         player.cooY += 1;
-        drawPlayerInDaGame();
+        drawPlayerInDaGame('backward');
     }
 }
