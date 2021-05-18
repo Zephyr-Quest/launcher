@@ -9,5 +9,6 @@ body {
 canvas {
     height: 75vh;
     width: 75vh;
-    margin: 12.5vh calc(50vw - 37.5vh - 10px)
+    background-color: red;
+    margin: 12.5vh calc(50vw - 37.5vh - 10px);
 }

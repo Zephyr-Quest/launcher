@@ -1,14 +1,18 @@
+window.onload = () => {
+    init()
+}
+
 /**
  *  !Global Var
  */
+
 
 let canvas = document.getElementById('myCanvas')
 let x = canvas.getAttribute('width') / 2;
 let y = canvas.getAttribute('height') / 2;
 let alive = true;
-let state = 0;
-
-/*! ODD NUMBER FOR THE MAP LENGHT !*/
+let state
+    /*! ODD NUMBER FOR THE MAP LENGHT !*/
 let mapLenght = 25;
 let sizeOfCircle = (x / mapLenght) - 2;
 var c = document.getElementById("myCanvas");
@@ -76,48 +80,23 @@ $(window).keyup(function(e) { // Key stop push
     } else if (keyCode == downKey) {
         player.backward = false;
     }
-    state = 0;
-    //clearPreviousPosition()
-    //drawPlayer(image d'attente, player.x, player.y)
-});
+})
 
 function init() {
-    drawCircle(x, y)
-}
-
-/**
- * !Test with circle
- */
-
-function drawCircle(xpos, ypos) {
-    ctx.fillStyle = 'green';
-    ctx.beginPath();
-    ctx.arc(xpos, ypos, player.radius, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'blue';
-    ctx.stroke();
-}
-
-function erasePreviousCircle() {
-    ctx.fillStyle = game.bcc;
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, player.radius, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = 'red';
-    ctx.stroke();
+    state = 0;
+    drawPlayer('img/character_stopped.png', player.x, player.y)
 }
 
 /**
  * !ANIMATION PLAYER
  */
 
-function animationChoose(state) {
+function animationChoose() {
     if (state == 0) {
         state = 1;
-    } else { state = 2 }
-    return state;
+    } else if (state == 1) {
+        state = 2
+    } else { state = 1 }
 }
 
 /**
@@ -128,57 +107,60 @@ function drawPlayer(url, x, y) {
     const image = new Image();
     image.src = url;
     image.onload = () => {
-        ctx.drawImage(image, x, y)
+        ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
     }
 }
 
 function clearPreviousPosition() {
-    ctx.clearRect(player.x - player.radius, player.y + player.radius, player.radius * 2, player.radius * 2);
+    ctx.clearRect(player.x - player.radius - 2, player.y - player.radius - 2, player.radius * 2, player.radius * 2);
 }
+
+function drawPlayerInDaGame() {
+    switch (state) {
+        case 1:
+            drawPlayer('img/character_moving_left.png', player.x, player.y)
+            break;
+
+        case 2:
+            drawPlayer('img/character_moving_right.png', player.x, player.y)
+            break;
+    }
+}
+
 
 /**
  * !UPDATE OF THE MOVEMENT
  */
+
+
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        erasePreviousCircle()
-        drawCircle(player.x - player.moveSize, player.y)
-            // For image 
         clearPreviousPosition()
-        let i = animationChoose()
-        switch (i) {
-            case 1:
-                //drawPlayer(ImageVersGaucheState1,player.x - player.moveSize, player.y)
-                break;
-
-            case 2:
-                //drawPlayer(ImageVersGaucheState2,player.x - player.moveSize, player.y)
-                break;
-        }
-
+        animationChoose()
         player.x -= player.moveSize;
         player.cooX -= 1;
+        drawPlayerInDaGame();
+
     }
-    if (player.right && player.x + player.moveSize < canvas.getAttribute('width')) {
-        erasePreviousCircle()
-        drawCircle(player.x + player.moveSize, player.y)
+    if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
+        clearPreviousPosition()
+        animationChoose()
         player.x += player.moveSize;
         player.cooX += 1;
+        drawPlayerInDaGame();
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        erasePreviousCircle()
-        drawCircle(player.x, player.y - player.moveSize)
+        clearPreviousPosition()
+        animationChoose()
         player.y -= player.moveSize;
         player.cooY -= 1;
+        drawPlayerInDaGame();
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
-        erasePreviousCircle()
-        drawCircle(player.x, player.y + player.moveSize)
+        clearPreviousPosition()
+        animationChoose()
         player.y += player.moveSize;
         player.cooY += 1;
+        drawPlayerInDaGame();
     }
-}
-
-window.onload = () => {
-    init()
 }
