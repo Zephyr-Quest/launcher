@@ -16,7 +16,7 @@ var ctx = c.getContext("2d");
 let wait = 0
 let wall
 
-let obstacles = []
+
 
 
 /**
@@ -26,17 +26,15 @@ let obstacles = []
 var light = {
     width: Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * 4,
 }
-var obstacle = {
-    size: 100
-}
+
 var game = {
     lenght: mapLenght,
     bcc: "white",
 }
 
 var player = {
-    cooX: (mapLenght - 1) / 2 + 1,
-    cooY: (mapLenght - 1) / 2 + 1,
+    cooX: (mapLenght - 1) / 2,
+    cooY: (mapLenght - 1) / 2,
     x: x - 10,
     y: y,
     radius: 45,
@@ -167,7 +165,7 @@ function drawPlayerInDaGame(goTo) {
 
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        if (player.cooX % 15 != 1 && obstacles[player.cooY * 14 + player.cooX - 1] == 0) {
+        if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1] === undefined) {
             animationChoose()
             clearPreviousPosition()
             player.x -= player.moveSize;
@@ -176,17 +174,16 @@ function updateStageObject() {
         }
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
-        if (player.cooX % 15 != 0 && obstacles[player.cooY * 14 + player.cooX + 1] == 0) {
+        if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1] === undefined) {
             animationChoose()
             clearPreviousPosition()
             player.x += player.moveSize;
             player.cooX += 1;
             drawPlayerInDaGame('right');
-            console.log(player.cooX % 15)
         }
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        if (player.cooY % 15 != 1 && obstacles[(player.cooY - 1) * 14 + player.cooX] == 0) {
+        if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] === undefined) {
             animationChoose()
             clearPreviousPosition()
             player.y -= player.moveSize;
@@ -195,7 +192,7 @@ function updateStageObject() {
         }
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
-        if (player.cooY % 15 != 0 && obstacles[(player.cooY + 1) * 14 + player.cooX] == 0) {
+        if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] === undefined) {
             clearPreviousPosition()
             animationChoose()
             player.y += player.moveSize;
@@ -203,7 +200,6 @@ function updateStageObject() {
             drawPlayerInDaGame('backward');
         }
     }
-
 }
 
 /**
@@ -217,9 +213,12 @@ function waitingBeforeStart() {
     image.onload = () => {
         ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
     }
-    addObstacle(3, 2, 5)
+    addObstacle(3, 1, 7)
+    addObstacle(3, 13, 7)
 }
-waitingBeforeStart()
+window.onload = () => {
+    waitingBeforeStart()
+}
 
 
 /**
@@ -282,67 +281,4 @@ function lightsOnPlayer() {
     ctx.fillStyle = gradient;
     ctx.fill();
     ctx.stroke();
-}
-
-
-/**
- * !OBSTACLES CREATION 
- */
-
-
-function createArrayVoid() {
-    for (let index = 0; index < 15 * 15; index++) {
-        obstacles.push(0)
-    }
-}
-
-function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
-    obstacle[ypos * 14 + xpos] = id
-    switch (id) {
-        case 1:
-            createLever(xpos, ypos)
-            break;
-        case 2:
-            createDoor(xpos, ypos)
-            break;
-        case 3:
-            createWall(xpos, ypos)
-            break;
-        case 4:
-            createHole(xpos, ypos)
-            break;
-    }
-}
-
-function createLever(xpos, ypos) {
-    const image = new Image();
-    image.src = 'img/obstacles/Wall.png';
-    image.onload = () => {
-        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
-    }
-}
-
-function createDoor(xpos, ypos) {
-    const image = new Image();
-    image.src = 'img/obstacles/Wall.png';
-    image.onload = () => {
-        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
-    }
-}
-
-function createWall(xpos, ypos) {
-    const image = new Image();
-    image.src = 'img/obstacles/Wall.png';
-    image.onload = () => {
-        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
-    }
-
-}
-
-function createHole(xpos, ypos) {
-    const image = new Image();
-    image.src = 'img/obstacles/Hole.png';
-    image.onload = () => {
-        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
-    }
 }

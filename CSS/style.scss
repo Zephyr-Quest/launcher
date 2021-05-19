@@ -9,11 +9,17 @@ body {
 canvas {
     height: 75vh;
     width: 75vh;
+    margin: 12.5vh calc(50vw - 37.5vh - 10px);
+    background-color: transparent;
+    position: absolute
+}
+
+#obstacles {
     background-image: url('../img/Map.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 12.5vh calc(50vw - 37.5vh - 10px);
+    z-index: -1;
 }
 
 #play_button {
