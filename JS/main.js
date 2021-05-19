@@ -220,9 +220,13 @@ function waitingBeforeStart() {
     image.onload = () => {
         ctx.drawImage(image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }
-    addObstacle(3, 1, 7)
-    addObstacle(3, 13, 7)
-    addObstacle(4, 1, 6)
+    addObstacle(3, 1, 1)
+    addObstacle(3, 3, 1)
+    addObstacle(3, 3, 3)
+    addObstacle(2, 2, 1)
+    addObstacle(2, 3, 2)
+    console.log(obstaclesArray[1 * 15 + 2])
+    console.log(obstaclesArray[2 * 15 + 3])
 }
 window.onload = () => {
     waitingBeforeStart()
@@ -311,6 +315,8 @@ function cutCircle(context, x, y, radius) {
     context.beginPath();
     context.arc(x, y, radius, 0, 2 * Math.PI, false);
     context.fill();
+    context.globalCompositeOperation = 'source-over';
+
     context.restore();
 }
 

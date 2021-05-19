@@ -5,6 +5,8 @@
 let canvasObstacles = document.getElementById('obstacles')
 let obstaclesArray = []
 var context = canvasObstacles.getContext("2d");
+let doorIndex = 0
+let leverIndex = 0
 
 /**
  * !Game settings
@@ -58,18 +60,27 @@ function checkObstacles() {
 
 function createLever(xpos, ypos) {
     const image = new Image();
-    image.src = 'img/obstacles/Wall.png';
+    image.src = 'img/obstacles/Door_closedX.png';
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
 }
 
 function createDoor(xpos, ypos) {
-    const image = new Image();
-    image.src = 'img/obstacles/Wall.png';
-    image.onload = () => {
-        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    if (obstaclesArray[ypos * 15 + xpos - 1] == 3 && obstaclesArray[ypos * 15 + xpos + 1] == 3) { // Door on x axis
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedX.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
+    } else if (obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && obstaclesArray[(ypos + 1) * 15 + xpos] == 3) { // Door on y axis
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedY.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
     }
+    doorIndex += 1
 }
 
 function createWall(xpos, ypos) {
