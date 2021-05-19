@@ -49,3 +49,16 @@ canvas {
     width: 10%;
     position: absolute;
 }
+
+#gamelost {
+    color: red;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin-top: 30%;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s
+}

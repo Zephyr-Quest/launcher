@@ -337,6 +337,7 @@ function reset() {
         img.src = 'img/right/character_stopped.png';
         ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }, 5);
+    gameLostAnimation()
 }
 
 /**
