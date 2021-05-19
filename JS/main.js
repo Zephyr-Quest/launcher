@@ -16,12 +16,18 @@ var ctx = c.getContext("2d");
 let wait = 0
 let wall
 
+let obstacles = []
+
+
 /**
  * !Game settings
  */
 
 var light = {
     width: Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * 4,
+}
+var obstacle = {
+    size: 100
 }
 var game = {
     lenght: mapLenght,
@@ -161,32 +167,41 @@ function drawPlayerInDaGame(goTo) {
 
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        animationChoose()
-        clearPreviousPosition()
-        player.x -= player.moveSize;
-        player.cooX -= 1;
-        drawPlayerInDaGame('left');
+        if (player.cooX % 15 != 1 && obstacles[player.cooY * 14 + player.cooX - 1] == 0) {
+            animationChoose()
+            clearPreviousPosition()
+            player.x -= player.moveSize;
+            player.cooX -= 1;
+            drawPlayerInDaGame('left');
+        }
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
-        animationChoose()
-        clearPreviousPosition()
-        player.x += player.moveSize;
-        player.cooX += 1;
-        drawPlayerInDaGame('right');
+        if (player.cooX % 15 != 0 && obstacles[player.cooY * 14 + player.cooX + 1] == 0) {
+            animationChoose()
+            clearPreviousPosition()
+            player.x += player.moveSize;
+            player.cooX += 1;
+            drawPlayerInDaGame('right');
+            console.log(player.cooX % 15)
+        }
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        animationChoose()
-        clearPreviousPosition()
-        player.y -= player.moveSize;
-        player.cooY -= 1;
-        drawPlayerInDaGame('forward');
+        if (player.cooY % 15 != 1 && obstacles[(player.cooY - 1) * 14 + player.cooX] == 0) {
+            animationChoose()
+            clearPreviousPosition()
+            player.y -= player.moveSize;
+            player.cooY -= 1;
+            drawPlayerInDaGame('forward');
+        }
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
-        clearPreviousPosition()
-        animationChoose()
-        player.y += player.moveSize;
-        player.cooY += 1;
-        drawPlayerInDaGame('backward');
+        if (player.cooY % 15 != 0 && obstacles[(player.cooY + 1) * 14 + player.cooX] == 0) {
+            clearPreviousPosition()
+            animationChoose()
+            player.y += player.moveSize;
+            player.cooY += 1;
+            drawPlayerInDaGame('backward');
+        }
     }
 
 }
@@ -202,6 +217,7 @@ function waitingBeforeStart() {
     image.onload = () => {
         ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
     }
+    addObstacle(3, 2, 5)
 }
 waitingBeforeStart()
 
@@ -211,7 +227,7 @@ waitingBeforeStart()
  */
 
 function start() {
-    for (let index = light.width; index >= 400; index -= 20) {
+    for (let index = light.width; index >= 400; index -= 40) {
         setTimeout(() => {
             light.width = index
             state = 0;
@@ -240,6 +256,7 @@ function start() {
 document.getElementById("play_button").addEventListener("click", init);
 
 function init() {
+    createArrayVoid();
     document.getElementById("play_button").style.display = "none"
     alive = true;
     playing = true
@@ -247,7 +264,7 @@ function init() {
 }
 
 /**
- * !GESTION DES LUMIERES
+ * !MANAGE AND CREATE LIGHTS
  */
 
 function lightsOnPlayer() {
@@ -257,7 +274,6 @@ function lightsOnPlayer() {
     image.src = 'img/Cercle.png';
     ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
     ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
-
     gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
     gradient.addColorStop(0, "transparent");
     gradient.addColorStop(1, "black");
@@ -266,4 +282,67 @@ function lightsOnPlayer() {
     ctx.fillStyle = gradient;
     ctx.fill();
     ctx.stroke();
+}
+
+
+/**
+ * !OBSTACLES CREATION 
+ */
+
+
+function createArrayVoid() {
+    for (let index = 0; index < 15 * 15; index++) {
+        obstacles.push(0)
+    }
+}
+
+function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
+    obstacle[ypos * 14 + xpos] = id
+    switch (id) {
+        case 1:
+            createLever(xpos, ypos)
+            break;
+        case 2:
+            createDoor(xpos, ypos)
+            break;
+        case 3:
+            createWall(xpos, ypos)
+            break;
+        case 4:
+            createHole(xpos, ypos)
+            break;
+    }
+}
+
+function createLever(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Wall.png';
+    image.onload = () => {
+        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
+}
+
+function createDoor(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Wall.png';
+    image.onload = () => {
+        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
+}
+
+function createWall(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Wall.png';
+    image.onload = () => {
+        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
+
+}
+
+function createHole(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Hole.png';
+    image.onload = () => {
+        ctx.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
 }
