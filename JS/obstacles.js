@@ -171,3 +171,11 @@ function desactivateLever(xpos, ypos) {
     console.log(obstaclesArray[ypos * 15 + xpos])
 
 }
+
+/**
+ * !DISABLE NO LIGHT
+ */
+
+function sun() {
+    light.width = 200000
+}
