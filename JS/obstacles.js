@@ -42,6 +42,23 @@ function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
     }
 }
 
+function checkObstacles() {
+    id = obstaclesArray[player.cooY * 15 + player.cooX]
+    switch (id) {
+        case 4:
+            console.log("lost")
+            reset()
+            player.x = x
+            player.y = y
+            player.cooX = (mapLenght - 1) / 2
+            player.cooY = (mapLenght - 1) / 2
+            break;
+
+        default:
+            break;
+    }
+}
+
 function createLever(xpos, ypos) {
     const image = new Image();
     image.src = 'img/obstacles/Wall.png';

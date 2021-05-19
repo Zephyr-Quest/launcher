@@ -165,7 +165,7 @@ function drawPlayerInDaGame(goTo) {
 
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1] === undefined) {
+        if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 2) {
             animationChoose()
             clearPreviousPosition()
             player.x -= player.moveSize;
@@ -174,7 +174,7 @@ function updateStageObject() {
         }
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
-        if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1] === undefined) {
+        if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 2) {
             animationChoose()
             clearPreviousPosition()
             player.x += player.moveSize;
@@ -183,7 +183,7 @@ function updateStageObject() {
         }
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] === undefined) {
+        if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 2) {
             animationChoose()
             clearPreviousPosition()
             player.y -= player.moveSize;
@@ -192,7 +192,7 @@ function updateStageObject() {
         }
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
-        if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] === undefined) {
+        if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 2) {
             clearPreviousPosition()
             animationChoose()
             player.y += player.moveSize;
@@ -200,6 +200,7 @@ function updateStageObject() {
             drawPlayerInDaGame('backward');
         }
     }
+    checkObstacles();
 }
 
 /**
@@ -215,6 +216,7 @@ function waitingBeforeStart() {
     }
     addObstacle(3, 1, 7)
     addObstacle(3, 13, 7)
+    addObstacle(4, 1, 6)
 }
 window.onload = () => {
     waitingBeforeStart()
@@ -260,6 +262,34 @@ function init() {
     alive = true;
     playing = true
     start()
+}
+
+
+/**
+ * !BEGIN GAME
+ */
+
+function reset() {
+    light.width = 400
+    state = 0;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, 2 * x, 2 * y);
+    const image = new Image();
+    image.src = 'img/Cercle.png';
+    ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
+    ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
+    ctx.stroke();
+    gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+    gradient.addColorStop(0, "transparent");
+    gradient.addColorStop(1, "black");
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.stroke();
+    const img = new Image();
+    img.src = 'img/forward/character_stopped.png';
+    ctx.drawImage(img, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
 }
 
 /**
