@@ -28,6 +28,8 @@ function initializeObstacles() {
     addObstacle(2, 3, 2)
     addObstacle(5, 3, 5)
     addObstacle(4, 4, 5)
+    addObstacle(4, 2, 5)
+    addObstacle(1, 3, 6)
     addObstacle(3, 14, 14)
 }
 
@@ -67,7 +69,7 @@ function checkObstacles() {
 
 function createLever(xpos, ypos, id) {
     const image = new Image();
-    image.src = 'img/obstacles/Door_closedX.png';
+    image.src = 'img/obstacles/Button_close.png';
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
@@ -128,6 +130,10 @@ function createTorch(xpos, ypos, id) {
     }
 }
 
+/**
+ * !TORCH DETECTION AND CHANGE LIGHT
+ */
+
 function checkTorch() {
     if (obstaclesArray[player.cooY * 15 + player.cooX] == 5) { //If torch on our way
         player.torch += 1
@@ -135,4 +141,31 @@ function checkTorch() {
         context.clearRect(player.x - player.moveSize / 2, player.y - player.moveSize / 2, player.moveSize, player.moveSize);
         light.width += 200;
     }
+}
+
+/**
+ * !DOOR SYSTEM ACTIVATION
+ */
+
+function activateLever(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Button_open.png';
+    image.onload = () => {
+        context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize, player.moveSize);
+        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
+    obstaclesArray[ypos * 15 + xpos] = 0
+    console.log(obstaclesArray[ypos * 15 + xpos])
+}
+
+function desactivateLever(xpos, ypos) {
+    const image = new Image();
+    image.src = 'img/obstacles/Button_close.png';
+    image.onload = () => {
+        context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize, player.moveSize);
+        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+    }
+    obstaclesArray[ypos * 15 + xpos] = 1
+    console.log(obstaclesArray[ypos * 15 + xpos])
+
 }

@@ -58,6 +58,7 @@ var leftKey = 37;
 var upKey = 38;
 var rightKey = 39;
 var downKey = 40;
+var enterKey = 13;
 
 /**
  * !MOVING THE CHARACTER
@@ -88,6 +89,41 @@ $(window).keydown(function(e) { // Key pushed
         player.right = false;
         player.backward = true;
         player.forward = false;
+    } else if (keyCode == enterKey) {
+        player.left = false;
+        player.right = false;
+        player.backward = false;
+        player.forward = false;
+        if (obstaclesArray[player.cooY * 15 + player.cooX] == 1) {
+            activateLever(player.cooX, player.cooY)
+        } else
+        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX] == 1) {
+            activateLever(player.cooX, player.cooY - 1)
+        } else
+        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX] == 1) {
+            activateLever(player.cooX, player.cooY + 1)
+        } else
+        if (obstaclesArray[player.cooY * 15 + player.cooX + 1] == 1) {
+            activateLever(player.cooX + 1, player.cooY)
+        } else
+        if (obstaclesArray[player.cooY * 15 + player.cooX - 1] == 1) {
+            activateLever(player.cooX - 1, player.cooY)
+        } else
+        if (obstaclesArray[player.cooY * 15 + player.cooX] == 0) {
+            desactivateLever(player.cooX, player.cooY)
+        } else
+        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX] == 0) {
+            desactivateLever(player.cooX, player.cooY - 1)
+        } else
+        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX] == 0) {
+            desactivateLever(player.cooX, player.cooY + 1)
+        } else
+        if (obstaclesArray[player.cooY * 15 + player.cooX + 1] == 0) {
+            desactivateLever(player.cooX + 1, player.cooY)
+        } else
+        if (obstaclesArray[player.cooY * 15 + player.cooX - 1] == 0) {
+            desactivateLever(player.cooX - 1, player.cooY)
+        }
     } else { return false }
     updateStageObject()
     checkTorch()
