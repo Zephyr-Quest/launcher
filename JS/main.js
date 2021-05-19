@@ -46,7 +46,8 @@ var player = {
     left: false,
     forward: false,
     right: false,
-    backward: false
+    backward: false,
+    torch: 0
 }
 
 /**
@@ -88,8 +89,8 @@ $(window).keydown(function(e) { // Key pushed
         player.backward = true;
         player.forward = false;
     } else { return false }
-
     updateStageObject()
+    checkTorch()
 });
 
 $(window).keyup(function(e) { // Key stop push
@@ -220,13 +221,7 @@ function waitingBeforeStart() {
     image.onload = () => {
         ctx.drawImage(image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }
-    addObstacle(3, 1, 1)
-    addObstacle(3, 3, 1)
-    addObstacle(3, 3, 3)
-    addObstacle(2, 2, 1)
-    addObstacle(2, 3, 2)
-    console.log(obstaclesArray[1 * 15 + 2])
-    console.log(obstaclesArray[2 * 15 + 3])
+
 }
 window.onload = () => {
     waitingBeforeStart()
@@ -262,6 +257,8 @@ function start() {
             ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
         }, 150);
     }
+    initializeObstacles()
+
     setTimeout(() => {
 
         document.getElementById("myCanvas").style.background = "none"
@@ -272,7 +269,6 @@ function start() {
 document.getElementById("play_button").addEventListener("click", init);
 
 function init() {
-    createArrayVoid();
     document.getElementById("play_button").style.display = "none"
     alive = true;
     playing = true
@@ -285,6 +281,8 @@ function init() {
  */
 
 function reset() {
+    initializeObstacles()
+
     setTimeout(() => {
 
         light.width = 400
