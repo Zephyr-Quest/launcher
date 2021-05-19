@@ -318,7 +318,6 @@ function init() {
 
 function reset() {
     initializeObstacles()
-
     setTimeout(() => {
 
         light.width = 400

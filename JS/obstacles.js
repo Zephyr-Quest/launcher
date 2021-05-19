@@ -7,6 +7,7 @@ let obstaclesArray = []
 var context = canvasObstacles.getContext("2d");
 let doorIndex = 0
 let leverIndex = 0
+let saveArray = []
 
 /**
  * !Game settings
@@ -137,7 +138,8 @@ function createTorch(xpos, ypos, id) {
 function checkTorch() {
     if (obstaclesArray[player.cooY * 15 + player.cooX] == 5) { //If torch on our way
         player.torch += 1
-            //obstaclesArray[player.cooY * 15 + player.cooX] = undefined
+            //saveArray = obstaclesArray
+        obstaclesArray[player.cooY * 15 + player.cooX] = undefined
         context.clearRect(player.x - player.moveSize / 2, player.y - player.moveSize / 2, player.moveSize, player.moveSize);
         light.width += 200;
     }
