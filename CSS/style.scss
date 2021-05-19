@@ -14,12 +14,34 @@ canvas {
     position: absolute
 }
 
+.bcc {
+    height: 75vh;
+    width: 75vh;
+    margin: 12.5vh calc(50vw - 37.5vh - 10px);
+    background-color: transparent;
+    position: absolute;
+    background-image: url('../img/Map.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -2;
+}
+
+#myCanvas {
+    background-image: url('../img/Map.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 #obstacles {
+    opacity: 0;
     background-image: url('../img/Map.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
+    transition: opacity 0.5s;
 }
 
 #play_button {

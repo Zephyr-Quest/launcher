@@ -48,13 +48,10 @@ function checkObstacles() {
         case 4:
             console.log("lost")
             reset()
-            player.x = x
-            player.y = y
-            player.cooX = (mapLenght - 1) / 2
-            player.cooY = (mapLenght - 1) / 2
-            break;
-
-        default:
+            player.x = startX
+            player.y = startY
+            player.cooX = 0
+            player.cooY = 7
             break;
     }
 }

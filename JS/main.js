@@ -5,6 +5,10 @@
 let canvas = document.getElementById('myCanvas')
 let x = canvas.getAttribute('width') / 2;
 let y = canvas.getAttribute('height') / 2;
+let startX = canvas.getAttribute('width') / 30;
+let startY = canvas.getAttribute('height') / 2;
+let endX = canvas.getAttribute('width') / 30 * 29;
+let endY = canvas.getAttribute('height') / 2;
 let alive = true;
 let playing = false
 let state
@@ -33,10 +37,10 @@ var game = {
 }
 
 var player = {
-    cooX: (mapLenght - 1) / 2,
-    cooY: (mapLenght - 1) / 2,
-    x: x - 10,
-    y: y,
+    cooX: 0,
+    cooY: 7,
+    x: startX - 10,
+    y: startY,
     radius: 45,
     moveSize: 100,
     left: false,
@@ -159,6 +163,8 @@ function drawPlayerInDaGame(goTo) {
     }
 }
 
+
+
 /**
  * !UPDATE OF THE MOVEMENT
  */
@@ -210,9 +216,9 @@ function updateStageObject() {
 function waitingBeforeStart() {
     ctx.clearRect(player.x - x / 2 / 2, player.y - y / 2, x, y);
     const image = new Image();
-    image.src = 'img/forward/character_stopped.png';
+    image.src = 'img/right/character_stopped.png';
     image.onload = () => {
-        ctx.drawImage(image, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
+        ctx.drawImage(image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }
     addObstacle(3, 1, 7)
     addObstacle(3, 13, 7)
@@ -248,10 +254,15 @@ function start() {
             ctx.fill();
             ctx.stroke();
             const img = new Image();
-            img.src = 'img/forward/character_stopped.png';
-            ctx.drawImage(img, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
-        }, 200);
+            img.src = 'img/right/character_stopped.png';
+            ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
+        }, 150);
     }
+    setTimeout(() => {
+
+        document.getElementById("myCanvas").style.background = "none"
+        document.getElementById("obstacles").style.opacity = "1"
+    }, 500);
 
 }
 document.getElementById("play_button").addEventListener("click", init);
@@ -266,7 +277,7 @@ function init() {
 
 
 /**
- * !BEGIN GAME
+ * !RESET GAME
  */
 
 function reset() {
@@ -276,11 +287,7 @@ function reset() {
         state = 0;
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, 2 * x, 2 * y);
-        const image = new Image();
-        image.src = 'img/Cercle.png';
-        ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
-        ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
-        ctx.stroke();
+        cutCircle(ctx, player.x, player.y, light.width / 2)
         gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
         gradient.addColorStop(0, "transparent");
         gradient.addColorStop(1, "black");
@@ -290,22 +297,27 @@ function reset() {
         ctx.fill();
         ctx.stroke();
         const img = new Image();
-        img.src = 'img/forward/character_stopped.png';
-        ctx.drawImage(img, x - player.radius, y - player.radius, player.radius * 2, player.radius * 2)
+        img.src = 'img/right/character_stopped.png';
+        ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }, 5);
 }
 
 /**
  * !MANAGE AND CREATE LIGHTS
  */
+function cutCircle(context, x, y, radius) {
+    context.save();
+    context.globalCompositeOperation = 'destination-out';
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI, false);
+    context.fill();
+    context.restore();
+}
 
 function lightsOnPlayer() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, 2 * x, 2 * y);
-    const image = new Image();
-    image.src = 'img/Cercle.png';
-    ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
-    ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
+    cutCircle(ctx, player.x, player.y, light.width / 2)
     gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
     gradient.addColorStop(0, "transparent");
     gradient.addColorStop(1, "black");
