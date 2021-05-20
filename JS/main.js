@@ -7,8 +7,8 @@ let x = canvas.getAttribute('width') / 2;
 let y = canvas.getAttribute('height') / 2;
 let startX = canvas.getAttribute('width') / 30;
 let startY = canvas.getAttribute('height') / 2;
-let endX = canvas.getAttribute('width') / 30 * 29;
-let endY = canvas.getAttribute('height') / 2;
+let endX = 14;
+let endY = 7;
 let alive = true;
 let playing = false
 let state
@@ -130,7 +130,6 @@ $(window).keydown(function(e) { // Key pushed
 });
 
 $(window).keyup(function(e) { // Key stop push
-    if (alive == false || playing == false) { return false }
     this.className = '';
     var keyCode = e.keyCode;
     if (keyCode == leftKey) {
@@ -243,6 +242,7 @@ function updateStageObject() {
             drawPlayerInDaGame('backward');
         }
     }
+    checkEnd()
     checkObstacles();
 }
 
@@ -338,6 +338,17 @@ function reset() {
         ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }, 5);
     gameLostAnimation()
+}
+
+
+/**
+ *  !END GAME
+ */
+
+function checkEnd() {
+    if (player.cooX == endX && player.cooY == endY) {
+        playing = false
+    }
 }
 
 /**

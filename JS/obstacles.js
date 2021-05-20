@@ -146,6 +146,15 @@ function checkTorch() {
 }
 
 /**
+ * !DOOR SYSTEM (OPENING AND CLOSING)
+ */
+
+function openDoor(xpos, ypos) {
+    obstaclesArray[ypos * 15 + xpos] = undefined
+    context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize, player.moveSize)
+}
+
+/**
  * !DOOR SYSTEM ACTIVATION
  */
 

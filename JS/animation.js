@@ -6,7 +6,7 @@ function gameLostAnimation() {
     message = document.getElementById("gamelost").style
     message.visibility = "visible"
     message.opacity = 1;
-    message.marginTop = "40%"
+    message.marginTop = "45%"
     setTimeout(() => {
         message.visibility = "hidden"
         message.opacity = 0;
