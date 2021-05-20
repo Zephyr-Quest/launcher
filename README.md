@@ -2,7 +2,7 @@
 
 The game launcher for ZephyrQuest.
 
-## APIs function to manages maps
+## APIs function to manage maps
 
 ```js
 // Get all saved maps
