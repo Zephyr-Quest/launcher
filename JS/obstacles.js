@@ -127,7 +127,31 @@ function createTorch(xpos, ypos, id) {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
+        setTimeout(() => {
+            torchLight()
+        }, 500);
+    }
+}
 
+function torchLight() {
+    for (let index = 0; index < obstaclesArray.length; index++) {
+        if (obstaclesArray[index] == 5) {
+
+            xlight = (index % 15) * 100 - 10 + player.moveSize / 2
+            ylight = ((index - index % 15) / 15) * 100 + player.moveSize / 2
+            cutCircle(ctx, xlight, ylight, light.torch / 2)
+
+
+            gradient = ctx.createRadialGradient(xlight, ylight, 0, xlight, ylight, light.torch / 2);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(1, "rgba(0,0,0,1)");
+            ctx.beginPath();
+            ctx.arc(xlight, ylight, light.torch / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = "source-over";
+            ctx.fill();
+
+        }
     }
 }
 
@@ -143,6 +167,15 @@ function checkTorch() {
         context.clearRect(player.x - player.moveSize / 2, player.y - player.moveSize / 2, player.moveSize, player.moveSize);
         light.width += 200;
     }
+}
+
+/**
+ * !DOOR SYSTEM (OPENING AND CLOSING)
+ */
+
+function openDoor(xpos, ypos) {
+    obstaclesArray[ypos * 15 + xpos] = undefined
+    context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize, player.moveSize)
 }
 
 /**
