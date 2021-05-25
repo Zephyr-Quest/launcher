@@ -28,7 +28,7 @@ let wall
  */
 
 var light = {
-    width: Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * 4,
+    width: 350,
     torch: 200,
 }
 
@@ -211,46 +211,46 @@ function drawPlayerInDaGame(goTo) {
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
         if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 2) {
-            torchLight()
+            //torchLight()
             animationChoose()
             clearPreviousPosition()
             player.x -= player.moveSize;
             player.cooX -= 1;
+            updateLightLeft()
             drawPlayerInDaGame('left');
-
         }
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
         if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 2) {
-            torchLight()
+            //torchLight()
             animationChoose()
             clearPreviousPosition()
             player.x += player.moveSize;
             player.cooX += 1;
+            updateLightRight()
             drawPlayerInDaGame('right');
-
         }
     }
     if (player.forward && player.y - player.moveSize > 0) {
         if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 2) {
-            torchLight()
+            //torchLight()
             animationChoose()
             clearPreviousPosition()
             player.y -= player.moveSize;
             player.cooY -= 1;
+            updateLightTop()
             drawPlayerInDaGame('forward');
-
         }
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
         if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 2) {
-            torchLight()
+            //torchLight()
             clearPreviousPosition()
             animationChoose()
             player.y += player.moveSize;
             player.cooY += 1;
+            updateLightBottom()
             drawPlayerInDaGame('backward');
-
         }
     }
     checkEnd()
@@ -280,39 +280,37 @@ window.onload = () => {
  */
 
 function start() {
-    for (let index = light.width; index >= 400; index -= 40) {
-        setTimeout(() => {
-            light.width = index
-            state = 0;
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, 2 * x, 2 * y);
-            const image = new Image();
-            image.src = 'img/Cercle.png';
-            ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
-            ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
-            ctx.stroke();
-            gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
-            gradient.addColorStop(0, "transparent");
-            gradient.addColorStop(1, "black");
-            ctx.beginPath();
-            ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-            ctx.fillStyle = gradient;
-            ctx.fill();
-            ctx.stroke();
-            const img = new Image();
-            img.src = 'img/right/character_stopped.png';
-            ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
-        }, 150);
-    }
-
     setTimeout(() => {
-
-        document.getElementById("myCanvas").style.background = "none"
-        document.getElementById("obstacles").style.opacity = "1"
-    }, 500);
-    initializeObstacles()
-
+        state = 0;
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, 2 * x, 2 * y);
+        const image = new Image();
+        image.src = 'img/Cercle.png';
+        ctx.clearRect(player.x - light.width / 2, player.y - light.width / 2, light.width, light.width);
+        ctx.drawImage(image, player.x - light.width / 2, player.y - light.width / 2, light.width, light.width)
+        ctx.stroke();
+        gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "black");
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        ctx.stroke();
+        const img = new Image();
+        img.src = 'img/right/character_stopped.png';
+        ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
+    }, 150);
 }
+
+setTimeout(() => {
+
+    document.getElementById("myCanvas").style.background = "none"
+    document.getElementById("obstacles").style.opacity = "1"
+}, 500);
+initializeObstacles()
+
+
 document.getElementById("play_button").addEventListener("click", init);
 
 function init() {
@@ -380,15 +378,16 @@ function lightsOnPlayer() {
 
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, x * 2, y * 2);
+
+
     cutCircle(ctx, player.x, player.y, light.width / 2)
-    gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
-    gradient.addColorStop(0, "transparent");
-    gradient.addColorStop(1, "black");
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = gradient;
-
-    ctx.fill();
-    ctx.stroke();
-
+    torchLight()
+        /*ctx.beginPath();
+        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+        gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "black");
+        ctx.fillStyle = "transparent";
+        ctx.fill();*/
+    JoinHalo()
 }
