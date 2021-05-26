@@ -56,17 +56,38 @@ function start() {
 }
 
 /**
- * !START BUTTON
+ * !BUTTON
  */
 
 document.getElementById("play_button").addEventListener("click", init);
+document.getElementById("pause_button").addEventListener("click", pause);
+document.getElementById("reset_button").addEventListener("click", reset);
 
 function init() {
     cancelled = true
-    document.getElementById("play_button").style.display = "none"
+    if (
+        document.getElementById("pause_button").style.color == "gray"
+    ) {
+        playing = true
+        document.getElementById("play_button").style.color = "gray"
+        document.getElementById("pause_button").style.color = "white"
+        document.getElementById("reset_button").style.color = "white"
+    } else {
+        document.getElementById("play_button").style.color = "gray"
+        document.getElementById("pause_button").style.color = "white"
+        document.getElementById("reset_button").style.color = "white"
+        start()
+    }
+
     alive = true;
     playing = true
-    start()
+}
+
+function pause() {
+    document.getElementById("play_button").style.color = "white"
+    document.getElementById("pause_button").style.color = "gray"
+    document.getElementById("reset_button").style.color = "white"
+    playing = false;
 }
 
 
@@ -75,6 +96,9 @@ function init() {
  */
 
 function reset() {
+    document.getElementById("play_button").style.color = "gray"
+    document.getElementById("pause_button").style.color = "white"
+    document.getElementById("reset_button").style.color = "white"
     light.width = 200
     state = 0;
     tempIdx = 3
@@ -98,6 +122,10 @@ function reset() {
         drawLightsBack()
 
     }, 50);
+    player.x = startX
+    player.y = startY
+    player.cooX = 0
+    player.cooY = 7
 }
 
 
