@@ -28,7 +28,7 @@ let wall
  */
 
 var light = {
-    width: 350,
+    width: 440,
     torch: 200,
 }
 

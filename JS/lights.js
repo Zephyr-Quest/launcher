@@ -34,9 +34,9 @@ function init() {
     const color = 0xffffff;
     const intensity = 1;
     lightBulb = new THREE.PointLight(color, intensity);
-    lightBulb.power = 80;
+    lightBulb.power = 100;
     lightBulb.decay = 1;
-    lightBulb.distance = 200;
+    lightBulb.distance = 270;
     lightBulb.position.x = -canvaLight.getAttribute('width') / 2 + 20
     lightBulb.position.y = 10
     lightBulb.position.z = 10
