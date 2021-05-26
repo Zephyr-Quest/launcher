@@ -24,11 +24,14 @@ window.onload = () => {
 function start() {
     light.width = 400
     state = 0;
+    tempIdx = 3
     setTimeout(() => {
         player.x = startX
         player.y = startY
         player.cooX = 0
         player.cooY = 7
+        light.background_big = 162
+        light.background_small = 120
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, 2 * x, 2 * y);
         cutCircle(ctx, player.x, player.y, light.width / 2)
@@ -48,6 +51,7 @@ function start() {
             document.getElementById("myCanvas").style.background = "none"
         }, 500);
         initializeObstacles()
+        drawLightsBack()
     }, 350);
 }
 
@@ -73,6 +77,7 @@ function init() {
 function reset() {
     light.width = 400
     state = 0;
+    tempIdx = 3
     setTimeout(() => {
         ctx.clearRect(0, 0, x * 2, y * 2)
         ctx.fillStyle = "black";
@@ -90,6 +95,8 @@ function reset() {
         img.src = 'img/right/character_stopped.png';
         ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
         initializeObstacles()
+        drawLightsBack()
+
     }, 50);
 }
 

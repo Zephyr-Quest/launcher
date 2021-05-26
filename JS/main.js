@@ -30,6 +30,8 @@ let wall
 var light = {
     width: 4000000,
     torch: 200,
+    background_big: 40000000,
+    background_small: 400000000
 }
 
 var game = {

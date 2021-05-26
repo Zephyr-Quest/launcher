@@ -147,6 +147,9 @@ function lightsOnPlayer() {
     gradient.addColorStop(1, "black");
     ctx.fillStyle = gradient;
     ctx.fill();
+
+    drawLightsBack()
+
 }
 
 /**
