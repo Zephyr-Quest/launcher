@@ -21,6 +21,7 @@ var obstacle = {
  * !OBSTACLES CREATION 
  */
 function initializeObstacles() {
+    clearMap()
     obstaclesArray.splice(0, 225)
     addObstacle(3, 1, 1)
     addObstacle(3, 3, 1)
@@ -72,7 +73,7 @@ function createLever(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Button_close.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 }
@@ -82,7 +83,7 @@ function createDoor(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Door_closedX.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
 
@@ -90,7 +91,7 @@ function createDoor(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Door_closedY.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
 
@@ -101,7 +102,7 @@ function createWall(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Wall.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 
@@ -112,7 +113,7 @@ function createHole(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Hole.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 
@@ -123,7 +124,7 @@ function createTorch(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Torche.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
     }

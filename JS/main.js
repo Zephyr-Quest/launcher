@@ -28,7 +28,7 @@ let wall
  */
 
 var light = {
-    width: 400,
+    width: 4000000,
     torch: 200,
 }
 
@@ -40,7 +40,7 @@ var game = {
 var player = {
     cooX: 0,
     cooY: 7,
-    x: startX - 10,
+    x: startX,
     y: startY,
     radius: 45,
     moveSize: 100,

@@ -1,6 +1,9 @@
 /**
  * !TOOLS
  */
+function clearMap() {
+    context.clearRect(0, 0, x * 2, y * 2)
+}
 
 function cutCircle(context, x, y, radius) {
     context.save();

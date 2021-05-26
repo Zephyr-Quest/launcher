@@ -1,6 +1,7 @@
 /**
  * !MODE ATTENTE
  */
+let cancelled = false
 
 function waitingBeforeStart() {
     ctx.clearRect(player.x - x / 2 / 2, player.y - y / 2, x, y);
@@ -9,6 +10,7 @@ function waitingBeforeStart() {
     image.onload = () => {
         ctx.drawImage(image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }
+    animWaitingMaze()
 }
 window.onload = () => {
     waitingBeforeStart()
@@ -20,28 +22,33 @@ window.onload = () => {
  */
 
 function start() {
+    light.width = 400
     state = 0;
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, 2 * x, 2 * y);
-    const image = new Image();
-    cutCircle(ctx, player.x, player.y, light.width / 2)
-    gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
-    gradient.addColorStop(0, "transparent");
-    gradient.addColorStop(1, "black");
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = gradient;
-    ctx.fill();
-    const img = new Image();
-    img.src = 'img/right/character_stopped.png';
-    img.onload = () => {
-        ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
-    }
     setTimeout(() => {
-        document.getElementById("myCanvas").style.background = "none"
-        document.getElementById("obstacles").style.opacity = "1"
-    }, 500);
-    initializeObstacles()
+        player.x = startX
+        player.y = startY
+        player.cooX = 0
+        player.cooY = 7
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, 2 * x, 2 * y);
+        cutCircle(ctx, player.x, player.y, light.width / 2)
+        gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "black");
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        const img = new Image();
+        img.src = 'img/right/character_stopped.png';
+        img.onload = () => {
+            ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
+        }
+        setTimeout(() => {
+            document.getElementById("myCanvas").style.background = "none"
+        }, 500);
+        initializeObstacles()
+    }, 350);
 }
 
 /**
@@ -51,6 +58,7 @@ function start() {
 document.getElementById("play_button").addEventListener("click", init);
 
 function init() {
+    cancelled = true
     document.getElementById("play_button").style.display = "none"
     alive = true;
     playing = true

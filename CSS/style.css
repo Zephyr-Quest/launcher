@@ -30,16 +30,12 @@ canvas {
 }
 
 #myCanvas {
-  background-image: url("../img/Map.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   position: absolute;
   z-index: 10;
 }
 
 #obstacles {
-  opacity: 0;
+  opacity: 1;
   background-image: url("../img/Map.png");
   background-position: center;
   background-repeat: no-repeat;
