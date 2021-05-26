@@ -5,7 +5,7 @@
 let canvas = document.getElementById('myCanvas')
 let x = canvas.getAttribute('width') / 2;
 let y = canvas.getAttribute('height') / 2;
-let startX = canvas.getAttribute('width') / 30;
+let startX = 320;
 let startY = canvas.getAttribute('height') / 2;
 let endX = 14;
 let endY = 7;
@@ -44,8 +44,8 @@ var player = {
     cooY: 7,
     x: startX,
     y: startY,
-    radius: 45,
-    moveSize: 100,
+    radius: 25,
+    moveSize: 61,
     left: false,
     forward: false,
     right: false,

@@ -11,6 +11,7 @@ function waitingBeforeStart() {
         ctx.drawImage(image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
     }
     animWaitingMaze()
+
 }
 window.onload = () => {
     waitingBeforeStart()
@@ -22,7 +23,7 @@ window.onload = () => {
  */
 
 function start() {
-    light.width = 400
+    light.width = 200
     state = 0;
     tempIdx = 3
     setTimeout(() => {
@@ -32,7 +33,13 @@ function start() {
         player.cooY = 7
         light.background_big = 162
         light.background_small = 120
+        const img = new Image();
+        img.src = 'img/right/character_stopped.png';
+        img.onload = () => {
+            ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
+        }
         ctx.fillStyle = "black";
+        ctx.globalCompositeOperation = "source-over";
         ctx.fillRect(0, 0, 2 * x, 2 * y);
         cutCircle(ctx, player.x, player.y, light.width / 2)
         gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
@@ -42,16 +49,9 @@ function start() {
         ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
         ctx.fillStyle = gradient;
         ctx.fill();
-        const img = new Image();
-        img.src = 'img/right/character_stopped.png';
-        img.onload = () => {
-            ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
-        }
-        setTimeout(() => {
-            document.getElementById("myCanvas").style.background = "none"
-        }, 500);
         initializeObstacles()
         drawLightsBack()
+
     }, 350);
 }
 
@@ -75,7 +75,7 @@ function init() {
  */
 
 function reset() {
-    light.width = 400
+    light.width = 200
     state = 0;
     tempIdx = 3
     setTimeout(() => {

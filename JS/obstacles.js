@@ -147,9 +147,7 @@ function lightsOnPlayer() {
     gradient.addColorStop(1, "black");
     ctx.fillStyle = gradient;
     ctx.fill();
-
     drawLightsBack()
-
 }
 
 /**
@@ -161,7 +159,7 @@ function checkTorch() {
         player.torch += 1
             //saveArray = obstaclesArray
         obstaclesArray[player.cooY * 15 + player.cooX] = undefined
-        context.clearRect(player.x - player.moveSize / 2, player.y - player.moveSize / 2, player.moveSize, player.moveSize);
+        context.clearRect(player.cooX * 100, player.cooY * 100, player.moveSize * 2, player.moveSize * 2);
         light.width += 200;
     }
 }
