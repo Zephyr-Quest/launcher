@@ -1,3 +1,4 @@
+@charset "UTF-8";
 html,
 body {
   margin: 0;
@@ -8,25 +9,12 @@ body {
 }
 
 canvas {
-  height: 75vh;
-  width: 75vh;
-  margin: 0vh calc(50vw - 37.5vh - 10px) auto;
+  height: 45vh;
+  width: 45vh;
+  margin: 15vh calc(50vw - 22.5vh) 0;
+  padding: 0;
   background-color: transparent;
-  position: absolute;
-}
-
-.bcc {
-  height: 75vh;
-  width: 75vh;
-  margin: 0vh calc(50vw - 37.5vh - 10px) auto;
-  background-color: transparent;
-  position: absolute;
-  background-image: url("../img/Map.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 1;
-  color: #d6ac95;
+  border: none;
 }
 
 #myCanvas {
@@ -35,20 +23,31 @@ canvas {
 }
 
 #obstacles {
-  opacity: 1;
   background-image: url("../img/Map.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 5;
   position: absolute;
-  -webkit-transition: opacity 0.5s;
-  transition: opacity 0.5s;
+  z-index: 5;
+}
+
+.bcc {
+  position: absolute;
+  height: 75vh;
+  width: 75vh;
+  margin: 0 calc(50vw - 37.5vh) 0;
+  padding: 0;
+  z-index: 0;
+  background-image: url("../img/background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #lights {
   background-color: transparent;
   opacity: 1;
+  display: none;
   z-index: 0;
   position: absolute;
 }
@@ -72,5 +71,189 @@ canvas {
   opacity: 0;
   -webkit-transition: all 1s;
   transition: all 1s;
+}
+
+/*______________ELEMENT DE LA PAGE EN GENERAL_________*/
+body {
+  background-color: black;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.barre_haut {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.barre2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  text-align: center;
+  margin-right: 0%;
+}
+
+.barre_haut a {
+  text-decoration: none;
+  color: white;
+  font-family: 'KoHo', sans-serif;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 99%;
+  padding-top: 2%;
+  height: 4.5%;
+}
+
+table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid black;
+  border-collapse: collapse;
+  /*pour que les bordures soient fusionnées*/
+}
+
+th,
+td {
+  border: 1px solid black;
+  color: white;
+  padding: 2.5rem;
+  font-family: 'KoHo', sans-serif;
+  letter-spacing: 0.2rem;
+}
+
+.barre2:hover {
+  color: #f5b815;
+}
+
+.bouton2 {
+  font-size: 1.5rem;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border: 3px solid #f5b815;
+  border-radius: 10px;
+  background-color: #f5b815;
+  text-shadow: 1px 2px 3px black;
+}
+
+/*.bouton2:hover {
+    -webkit-transition: 1s;
+    transition: 1s;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}*/
+.bouton1:hover a {
+  color: #f5b815;
+}
+
+/*__________PAGE INDEX______________*/
+.aventurier {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 61%;
+  margin-top: -400px;
+}
+
+.aventurier img {
+  height: 60%;
+}
+
+.groupe p {
+  font-size: 0.7rem;
+  color: #858585;
+  text-align: right;
+  font-family: 'KoHo', sans-serif;
+  padding-bottom: 0%;
+  /*text-shadow: 1px 2px 3px black;*/
+}
+
+.groupe a {
+  text-decoration: none;
+  color: #858585;
+}
+
+.titre {
+  text-align: left;
+  margin-top: 10%;
+  margin-left: 16%;
+}
+
+.titre h1 {
+  font-size: 2.5rem;
+  text-shadow: 1px 2px 3px black;
+  font-family: 'KoHo', sans-serif;
+  padding: 0%;
+  margin-bottom: 2%;
+  letter-spacing: 0.15rem;
+}
+
+.titre h2 {
+  font-size: 1.2rem;
+  font-family: 'KoHo', sans-serif;
+  margin-bottom: 5%;
+  letter-spacing: 0.15rem;
+}
+
+/*__________PAGE JEU _____________*/
+.fond_jeu {
+  margin-left: 12.5;
+  margin-top: -8%;
+  padding: 0%;
+  width: 75vh;
+  height: 75vh;
+}
+
+.bouton_commande {
+  margin-left: 0%;
+  margin-top: -0.7%;
+}
+
+.play,
+.pause,
+.reset {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.bottom_line table {
+  width: 75vh;
+  height: auto;
+  margin: 0 calc(50vw - 37.5vh) 0;
+  padding: 0;
+}
+
+.bottom_line table td {
+  border: none;
+  color: white;
+  padding: 0rem;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-family: 'KoHo', sans-serif;
+  letter-spacing: 0.2rem;
+}
+
+.timer {
+  text-align: left;
+}
+
+.r_shots {
+  text-align: right;
 }
 /*# sourceMappingURL=style.css.map */
