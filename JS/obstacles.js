@@ -160,7 +160,7 @@ function checkTorch() {
             //saveArray = obstaclesArray
         obstaclesArray[player.cooY * 15 + player.cooX] = undefined
         context.clearRect(player.cooX * 100, player.cooY * 100, player.moveSize * 2, player.moveSize * 2);
-        light.width += 200;
+        light.width += 100;
     }
 }
 

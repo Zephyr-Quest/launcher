@@ -21,87 +21,84 @@
 </head>
 
 <body>
-    <header>
-        <!--barre du haut-->
+    <!--barre du haut-->
 
-        <section class="barre_haut">
-            <section class="logo">
-                <a href="../index.html"><img src="img/logo22.PNG.jpg" height="100" alt="Logo"> </a>
-            </section>
-            <section class="barre2">
-
-                <table>
-                    <tr>
-                        <td>
-                            <section class="bouton1">
-                                <a href="rules.html">RULES</a>
-                            </section>
-                        </td>
-                        <td>
-                            <section class="bouton1">
-                                <a href="contact.html ">CONTACT US</a>
-                            </section>
-                        </td>
-                        <td>
-                            <section class="bouton2">
-                                <a href="build.html ">MAKE</a>
-                            </section>
-                        </td>
-                    </tr>
-                </table>
-            </section>
+    <section class="barre_haut">
+        <section class="logo">
+            <a href="../index.html"><img src="img/logo22.PNG.jpg" height="100" alt="Logo"> </a>
         </section>
-    </header>
+        <section class="barre2">
 
-    <main>
-        <section class="bouton_commande">
-            <section class="play">
-                <i id="play_button" class="far fa-play-circle"></i>
-            </section>
-            <section class="pause">
-                <i class="far fa-pause-circle"></i>
-            </section>
-            <section class="reset">
-                <i class="fas fa-redo-alt"></i>
-            </section>
-
-        </section>
-
-        <section class="fond_jeu">
-            <canvas id="myCanvas" width="1500" height="1500">
-                Your browser does not supsport the HTML canvas tag.</canvas>
-            <canvas id="obstacles" width="1500" height="1500">
-                    Your browser does not support the HTML canvas tag.</canvas>
-        </section>
-        <section class="bottom_line">
             <table>
                 <tr>
-                    <td class="timer">
-                        <p>00:00</p>
+                    <td>
+                        <section class="bouton1">
+                            <a href="rules.html">RULES</a>
+                        </section>
                     </td>
-                    <td class="r_shots">
-                        <p>Remaining Shots : 146</p>
+                    <td>
+                        <section class="bouton1">
+                            <a href="contact.html ">CONTACT US</a>
+                        </section>
+                    </td>
+                    <td>
+                        <section class="bouton2">
+                            <a href="build.html ">MAKE</a>
+                        </section>
                     </td>
                 </tr>
             </table>
         </section>
+    </section>
+
+    <div class="bouton_commande">
+        <section class="play">
+            <i id="play_button" class="far fa-play-circle"></i><br>
+        </section>
+        <section class="pause">
+            <i class="far fa-pause-circle"></i><br>
+        </section>
+        <section class="reset">
+            <i class="fas fa-redo-alt"></i><br>
+        </section>
+    </div>
+
+    <section class="fond_jeu">
+        <canvas id="myCanvas" width="1500" height="1500">
+                Your browser does not supsport the HTML canvas tag.</canvas>
+        <canvas id="obstacles" width="1500" height="1500">
+                    Your browser does not support the HTML canvas tag.</canvas>
+    </section>
+    <section class="bottom_line">
+        <table>
+            <tr>
+                <td class="timer">
+                    <p>00:00</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="r_shots">
+                    <p>Remaining Shots : 146</p>
+
+                </td>
+            </tr>
+        </table>
+    </section>
 
 
 
 
-        <!-- !ANIMATIONS -->
-        <h1 id="gamelost">YOU LOST !</h1>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="JS/api.js"></script>
-        <script src="JS/obstacles.js">
-        </script>
-        <script src="JS/tools.js"></script>
-        <script src="JS/background.js"></script>
-        <script src="JS/mode.js">
-        </script>
-        <script src="JS/main.js"></script>
-        <script src="JS/animation.js"></script>
-    </main>
+    <!-- !ANIMATIONS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="JS/api.js"></script>
+    <script src="JS/obstacles.js">
+    </script>
+    <script src="JS/tools.js"></script>
+    <script src="JS/background.js"></script>
+    <script src="JS/mode.js">
+    </script>
+    <script src="JS/main.js"></script>
+    <script src="JS/animation.js"></script>
 
     <footer>
         <section class="groupe">
