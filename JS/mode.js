@@ -102,6 +102,7 @@ function reset() {
     light.width = 200
     state = 0;
     tempIdx = 3
+    playing = true
     setTimeout(() => {
         ctx.clearRect(0, 0, x * 2, y * 2)
         ctx.fillStyle = "black";

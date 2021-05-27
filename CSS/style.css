@@ -262,4 +262,37 @@ td {
 .r_shots {
   text-align: left;
 }
+
+/*_________ MAKER _________*/
+.container_make {
+  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 0;
+  position: absolute;
+  margin-top: 14vh;
+  width: 6vh;
+  background-color: rgba(252, 252, 252, 0.781);
+  border: white 2px solid;
+  margin-left: calc(50vw - 0vh);
+}
+
+.container_make img {
+  padding: 10px;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  border: 2px solid transparent;
+}
+
+.container_make img:hover {
+  -webkit-filter: none;
+          filter: none;
+  cursor: pointer;
+  border: 2px solid black;
+}
 /*# sourceMappingURL=style.css.map */
