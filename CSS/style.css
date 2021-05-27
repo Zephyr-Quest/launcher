@@ -145,6 +145,7 @@ td {
   border-radius: 10px;
   background-color: #f5b815;
   text-shadow: 1px 2px 3px black;
+  color: white;
 }
 
 /*.bouton2:hover {
@@ -266,9 +267,6 @@ td {
 /*_________ MAKER _________*/
 .container_make {
   display: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;

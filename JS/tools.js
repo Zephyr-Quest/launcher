@@ -2,6 +2,9 @@
  * !TOOLS
  */
 function clearMap() {
+    for (let index = 0; index < obstaclesArray.length; index++) {
+        obstaclesArray[index] = undefined
+    }
     context.clearRect(0, 0, x * 2, y * 2)
 }
 
