@@ -20,7 +20,7 @@ function setLightsBackgroundBig(x, y) {
     ctx.beginPath();
     ctx.arc(x, y, light.background_big, 0, 2 * Math.PI);
     ctx.globalCompositeOperation = "source-over";
-    gradient = ctx.createRadialGradient(x, y, 50, x, y, light.background_big);
+    gradient = ctx.createRadialGradient(x, y, 0, x, y, light.background_big);
     gradient.addColorStop(0, "transparent");
     gradient.addColorStop(1, "rgba(0,0,0,1)");
     ctx.fillStyle = gradient;
@@ -46,19 +46,20 @@ function drawLightsBack() {
     setLightsBackgroundBig(x * 2 - 220, y - 150)
 
 
-    ctx.clearRect(0, y - 1.5 * player.moveSize, 3 * player.moveSize, 3 * player.moveSize)
+    /*ctx.clearRect(0, y - 1.5 * player.moveSize, 5 * player.moveSize, 3 * player.moveSize)
     gradient = ctx.createLinearGradient(0, 0, tempIdx * player.moveSize, 0);
     gradient.addColorStop(0, "rgba(0,0,0,1)");
     gradient.addColorStop(1, "rgba(0,0,0,0)");
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, y - 1.5 * player.moveSize, 3 * player.moveSize, 3 * player.moveSize);
+    ctx.fillRect(0, y - 1.5 * player.moveSize, 6 * player.moveSize, 6 * player.moveSize);
 
-    ctx.clearRect(x * 2 - 3 * player.moveSize, y - 1.5 * player.moveSize, 3 * player.moveSize, 3 * player.moveSize)
+    */
+    /*ctx.clearRect(x * 2 - 3 * player.moveSize, y - 1.5 * player.moveSize, 3 * player.moveSize, 3 * player.moveSize)
     gradient = ctx.createLinearGradient(x * 2 - tempIdx * player.moveSize, 0, x * 2, 0);
     gradient.addColorStop(0, "rgba(0,0,0,0)");
     gradient.addColorStop(1, "rgba(0,0,0,1)");
     ctx.fillStyle = gradient;
     ctx.fillRect(x * 2 - 3 * player.moveSize, y - 1.5 * player.moveSize, 3 * player.moveSize, 3 * player.moveSize);
-
+*/
 
 }

@@ -40,8 +40,8 @@ function start() {
         player.y = startY
         player.cooX = 0
         player.cooY = 7
-        light.background_big = 162
-        light.background_small = 120
+        light.background_big = 110
+        light.background_small = 90
         const img = new Image();
         img.src = 'img/right/character_stopped.png';
         img.onload = () => {

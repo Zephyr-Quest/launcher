@@ -9,9 +9,6 @@ body {
 }
 
 canvas {
-  height: 50vh;
-  width: 50vh;
-  margin: 30vh calc(50vw - 25vh) 0;
   padding: 0;
   background-color: transparent;
   border: none;
@@ -32,6 +29,9 @@ canvas {
 }
 
 #obstacles {
+  height: 49.5vh;
+  width: 49.5vh;
+  margin: calc(30vh + 1px) calc(50vw - 24.5vh - 1px) 0;
   background-image: url("../img/Map.png");
   background-position: center;
   background-repeat: no-repeat;

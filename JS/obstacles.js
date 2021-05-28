@@ -73,7 +73,7 @@ function createLever(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Button_close.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 }
@@ -83,7 +83,7 @@ function createDoor(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Door_closedX.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
 
@@ -91,7 +91,7 @@ function createDoor(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Door_closedY.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
 
@@ -102,7 +102,7 @@ function createWall(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Wall.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 
@@ -113,7 +113,7 @@ function createHole(xpos, ypos, id) {
     const image = new Image();
     image.src = 'img/obstacles/Hole.png';
     image.onload = () => {
-        context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = id
 
@@ -124,7 +124,7 @@ function createTorch(xpos, ypos, id) {
         const image = new Image();
         image.src = 'img/obstacles/Torche.png';
         image.onload = () => {
-            context.drawImage(image, xpos * 100, ypos * 100, obstacle.size, obstacle.size)
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
         obstaclesArray[ypos * 15 + xpos] = id
     }
@@ -142,7 +142,7 @@ function lightsOnPlayer() {
     cutCircle(ctx, player.x, player.y, light.width / 2)
     ctx.beginPath();
     ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-    gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+    gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
     gradient.addColorStop(0, "transparent");
     gradient.addColorStop(1, "black");
     ctx.fillStyle = gradient;
