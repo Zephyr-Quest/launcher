@@ -28,9 +28,9 @@ canvas {
 }
 
 #obstacles {
-    height: 49.5vh;
+    height: 49.25vh;
     width: 49.5vh;
-    margin: calc(30vh + 1px) calc(50vw - 24.5vh - 1px) 0;
+    margin: calc(30vh + 3px) calc(50vw - 24.5vh - 1px) 0;
     background-image: url('../img/Map.png');
     background-position: center;
     background-repeat: no-repeat;

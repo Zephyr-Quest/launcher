@@ -15,7 +15,7 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
-    getMapByName("map1")
+    getMapByName("map2")
         .then((data) => {
             map = data.items
             console.log(data);

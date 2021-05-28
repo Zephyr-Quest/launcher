@@ -79,7 +79,7 @@ function createLever(xpos, ypos, id) {
 }
 
 function createDoor(xpos, ypos, id) {
-    if (obstaclesArray[ypos * 15 + xpos - 1] == 3 && obstaclesArray[ypos * 15 + xpos + 1] == 3) { // Door on x axis
+    if ((obstaclesArray[ypos * 15 + xpos - 1] == 3 && obstaclesArray[ypos * 15 + xpos + 1] == 3) || (xpos == 0 && obstaclesArray[ypos * 15 + xpos + 1] == 3) || (xpos == 14 && obstaclesArray[ypos * 15 + xpos - 1] == 3)) { // Door on x axis
         const image = new Image();
         image.src = 'img/obstacles/Door_closedX.png';
         image.onload = () => {
@@ -87,7 +87,7 @@ function createDoor(xpos, ypos, id) {
         }
         obstaclesArray[ypos * 15 + xpos] = id
 
-    } else if (obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && obstaclesArray[(ypos + 1) * 15 + xpos] == 3) { // Door on y axis
+    } else if ((obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && obstaclesArray[(ypos + 1) * 15 + xpos] == 3) || (obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && ypos == 14) || (obstaclesArray[(ypos + 1) * 15 + xpos] == 3 && ypos == 0)) { // Door on y axis
         const image = new Image();
         image.src = 'img/obstacles/Door_closedY.png';
         image.onload = () => {
