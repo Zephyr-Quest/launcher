@@ -15,14 +15,14 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
-    getMapByName("niveau_demonstration")
+    /*getMapByName("niveau_demonstration")
         .then((data) => {
             map = data.items
                 //console.log(data);
         })
         .catch((err) => {
             console.error(err);
-        })
+        })*/
     waitingBeforeStart()
 }
 
@@ -32,6 +32,7 @@ window.onload = () => {
  */
 
 function start() {
+    timer()
     console.log("C'est parti ! (START)")
     light.width = 200
     state = 0;
@@ -151,4 +152,26 @@ function checkEnd() {
         console.log("Bien joué ! (FIN)")
         playing = false
     }
+}
+
+/**
+ * !TIMER
+ */
+let string
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+function timer() {
+    let minute = 0
+    let second = 0
+    setInterval(() => {
+        if (second == 59) {
+            minute++
+            second = 0
+        } else { second++ }
+        second = zeroPad(second, 2)
+        minute = zeroPad(minute, 2)
+        string = minute + ":" + second
+        document.getElementById("timer").innerHTML = string
+    }, 1000);
+
 }
