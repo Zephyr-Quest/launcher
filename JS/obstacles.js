@@ -159,7 +159,7 @@ function checkTorch() {
         player.torch += 1
             //saveArray = obstaclesArray
         obstaclesArray[player.cooY * 15 + player.cooX] = undefined
-        context.clearRect(player.cooX * 100, player.cooY * 100, player.moveSize * 2, player.moveSize * 2);
+        context.clearRect(player.cooX * 100 - 10, player.cooY * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
         light.width += 100;
     }
 }
@@ -170,7 +170,7 @@ function checkTorch() {
 
 function openDoor(xpos, ypos) {
     obstaclesArray[ypos * 15 + xpos] = undefined
-    context.clearRect(xpos * 100, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20)
+    context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20)
 }
 
 function closeDoor(xpos, ypos) {

@@ -15,10 +15,10 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
-    getMapByName("map2")
+    getMapByName("niveau_demonstration")
         .then((data) => {
             map = data.items
-            console.log(data);
+                //console.log(data);
         })
         .catch((err) => {
             console.error(err);
@@ -32,6 +32,7 @@ window.onload = () => {
  */
 
 function start() {
+    console.log("C'est parti ! (START)")
     light.width = 200
     state = 0;
     tempIdx = 3
@@ -93,6 +94,7 @@ function init() {
 }
 
 function pause() {
+    console.log("PAUSE")
     document.getElementById("play_button").style.color = "white"
     document.getElementById("pause_button").style.color = "gray"
     document.getElementById("reset_button").style.color = "white"
@@ -105,6 +107,7 @@ function pause() {
  */
 
 function reset() {
+    console.log("C'est parto ! (RESET)")
     document.getElementById("play_button").style.color = "gray"
     document.getElementById("pause_button").style.color = "white"
     document.getElementById("reset_button").style.color = "white"
@@ -145,6 +148,7 @@ function reset() {
 
 function checkEnd() {
     if (player.cooX == endX && player.cooY == endY) {
+        console.log("Bien joué ! (FIN)")
         playing = false
     }
 }
