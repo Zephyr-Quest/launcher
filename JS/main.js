@@ -133,7 +133,7 @@ $(window).keydown(function(e) { // Key pushed
 });
 
 $(window).keyup(function(e) { // Key stop push
-    if (playing = false) { return false }
+    if (playing == false) { return false }
     this.className = '';
     var keyCode = e.keyCode;
     if (keyCode == leftKey) {

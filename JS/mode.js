@@ -2,6 +2,7 @@
  * !MODE ATTENTE
  */
 let cancelled = false
+let map = undefined
 
 function waitingBeforeStart() {
     ctx.clearRect(player.x - x / 2 / 2, player.y - y / 2, x, y);
@@ -14,6 +15,14 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
+    getMapByName("map1")
+        .then((data) => {
+            map = data.items
+            console.log(data);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
     waitingBeforeStart()
 }
 

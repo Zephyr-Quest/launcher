@@ -20,16 +20,23 @@ door_button.addEventListener("click", addDoor)
 lever_button.addEventListener("click", addLever)
 hole_button.addEventListener("click", addHole)
 torch_button.addEventListener("click", addTorch)
+let count = 0
 
 function initMaker() {
-    if (maker_button.innerHTML == "MAKE") {
+    if (count == 0) {
         maker_button.innerHTML = "PLAY"
         maker_panel.style.display = "flex";
+        document.getElementById("obstacles").style.zIndex = "100"
         maker_panel.style.marginLeft = "calc(50vw - 50vh)";
+        playing = false
+        count = 1
     } else {
         maker_button.innerHTML = "MAKE"
         maker_panel.style.display = "none";
         maker_panel.style.marginLeft = "calc(50vw)";
+        playing = true
+        document.getElementById("obstacles").style.zIndex = "0"
+        count = 0
     }
     initMapMaker()
 }
@@ -37,8 +44,6 @@ function initMaker() {
 function initMapMaker() {
     cancelled = true
     clearMap()
-    document.getElementById("obstacles").style.zIndex = "100"
-    playing = false
 }
 
 function resetButtons() {

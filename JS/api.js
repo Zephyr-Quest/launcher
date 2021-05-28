@@ -1,10 +1,10 @@
-const API_ROOT = 'http://localhost/ZephyrQuest/server/api.php'
+const API_ROOT = 'http://10.224.1.225/ZephyrQuest/server/api.php'
 
 /**
  * Get all saved maps in the database
  * @return {Promise} A Promise for results 
  */
- function getAllMaps(){
+function getAllMaps() {
     return new Promise((resolve, reject) => {
         fetch(API_ROOT + '/maps')
             .then((data) => data.json())
@@ -18,7 +18,7 @@ const API_ROOT = 'http://localhost/ZephyrQuest/server/api.php'
  * @param String The map name
  * @return {Promise} A Promise for result 
  */
- function getMapByName(name){
+function getMapByName(name) {
     return new Promise((resolve, reject) => {
         fetch(API_ROOT + '/mapByName?name=' + name)
             .then((data) => data.json())
@@ -32,13 +32,13 @@ const API_ROOT = 'http://localhost/ZephyrQuest/server/api.php'
  * @param Object Map info
  * @return {Promise} A Promise for result 
  */
-function uploadNewMap(map){
+function uploadNewMap(map) {
     return new Promise((resolve, reject) => {
         const url = API_ROOT + '/newMap?name=' + map.name + '&author=' + map.author
         const options = {
             method: 'POST',
             body: JSON.stringify(map.items),
-            credentials:"include",
+            credentials: "include",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

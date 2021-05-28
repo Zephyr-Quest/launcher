@@ -23,16 +23,16 @@ var obstacle = {
 function initializeObstacles() {
     clearMap()
     obstaclesArray.splice(0, 225)
-    addObstacle(3, 1, 1)
-    addObstacle(3, 3, 1)
-    addObstacle(3, 3, 3)
-    addObstacle(2, 2, 1)
-    addObstacle(2, 3, 2)
-    addObstacle(5, 3, 5)
-    addObstacle(4, 4, 5)
-    addObstacle(4, 2, 5)
-    addObstacle(1, 3, 6)
-    addObstacle(3, 14, 14)
+    for (let index = 0; index < map.length; index++) {
+        if (map[index].id == 3) {
+            addObstacle(map[index].id, map[index].x, map[index].y)
+        }
+    }
+    for (let index = 0; index < map.length; index++) {
+        if (map[index].id != 3) {
+            addObstacle(map[index].id, map[index].x, map[index].y)
+        }
+    }
 }
 
 function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
@@ -170,12 +170,25 @@ function checkTorch() {
 
 function openDoor(xpos, ypos) {
     obstaclesArray[ypos * 15 + xpos] = undefined
-    context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize, player.moveSize)
+    context.clearRect(xpos * 100, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20)
+}
+
+function closeDoor(xpos, ypos) {
+    createDoor(xpos, ypos, 2)
 }
 
 /**
  * !DOOR SYSTEM ACTIVATION
  */
+let doorState = undefined
+
+function isOpen(xpos, ypos) {
+    if (obstaclesArray[ypos * 15 + xpos] === undefined) {
+        return true
+    } else {
+        return false
+    }
+}
 
 function activateLever(xpos, ypos) {
     const image = new Image();
@@ -185,6 +198,20 @@ function activateLever(xpos, ypos) {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = 0
+    for (let index = 0; index < map.length; index++) {
+        if (map[index].x == xpos && map[index].y == ypos) {
+            for (let i = 0; i < map[index].usages.length; i++) {
+                doorState = isOpen(map[index].usages[i].x, map[index].usages[i].y)
+                if (doorState) {
+                    closeDoor(map[index].usages[i].x, map[index].usages[i].y)
+                } else {
+                    openDoor(map[index].usages[i].x, map[index].usages[i].y)
+                }
+
+            }
+        }
+
+    }
 }
 
 function desactivateLever(xpos, ypos) {
@@ -195,6 +222,20 @@ function desactivateLever(xpos, ypos) {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = 1
+    for (let index = 0; index < map.length; index++) {
+        if (map[index].x == xpos && map[index].y == ypos) {
+            for (let i = 0; i < map[index].usages.length; i++) {
+                doorState = isOpen(map[index].usages[i].x, map[index].usages[i].y)
+                if (doorState) {
+                    closeDoor(map[index].usages[i].x, map[index].usages[i].y)
+                } else {
+                    openDoor(map[index].usages[i].x, map[index].usages[i].y)
+                }
+
+            }
+        }
+
+    }
 }
 
 /**
