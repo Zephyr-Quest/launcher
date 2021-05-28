@@ -191,6 +191,7 @@ function isOpen(xpos, ypos) {
 }
 
 function activateLever(xpos, ypos) {
+    tryNumber()
     const image = new Image();
     image.src = 'img/obstacles/Button_open.png';
     image.onload = () => {
@@ -215,6 +216,7 @@ function activateLever(xpos, ypos) {
 }
 
 function desactivateLever(xpos, ypos) {
+    tryNumber()
     const image = new Image();
     image.src = 'img/obstacles/Button_close.png';
     image.onload = () => {

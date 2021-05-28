@@ -32,6 +32,7 @@ window.onload = () => {
  */
 
 function start() {
+    document.getElementById("r_shots").innerHTML = "Remaining Shots : " + numberOfTry
     timer()
     console.log("C'est parti ! (START)")
     light.width = 200
@@ -108,7 +109,10 @@ function pause() {
  */
 
 function reset() {
-    console.log("C'est parto ! (RESET)")
+    minute = 0
+    second = 0
+    timer()
+    console.log("C'est parti ! (RESET)")
     document.getElementById("play_button").style.color = "gray"
     document.getElementById("pause_button").style.color = "white"
     document.getElementById("reset_button").style.color = "white"
@@ -157,12 +161,15 @@ function checkEnd() {
 /**
  * !TIMER
  */
+
+
 let string
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
+let minute = 0
+let second = 0
+
 function timer() {
-    let minute = 0
-    let second = 0
     setInterval(() => {
         if (second == 59) {
             minute++
@@ -174,4 +181,15 @@ function timer() {
         document.getElementById("timer").innerHTML = string
     }, 1000);
 
+}
+
+/**
+ * !NUMBER OF TRY
+ */
+let numberOfTry = 100
+
+function tryNumber() {
+    numberOfTry--
+    let r_shots = "Remaining Shots : " + numberOfTry
+    document.getElementById("r_shots").innerHtml = r_shots
 }
