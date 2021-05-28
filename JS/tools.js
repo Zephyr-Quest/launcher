@@ -1,6 +1,7 @@
 /**
  * !TOOLS
  */
+
 function clearMap() {
     for (let index = 0; index < obstaclesArray.length; index++) {
         obstaclesArray[index] = undefined
