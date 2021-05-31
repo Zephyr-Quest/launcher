@@ -100,31 +100,31 @@ $(window).keydown(function(e) { // Key pushed
         if (obstaclesArray[player.cooY * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY)
         } else
-        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 1) {
+        if (player.cooY != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY - 1)
         } else
-        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 1) {
+        if (player.cooY != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY + 1)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 1) {
+        if (player.cooX != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 1) {
             activateLever(player.cooX + 1, player.cooY)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 1) {
+        if (player.cooX != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 1) {
             activateLever(player.cooX - 1, player.cooY)
         } else
         if (obstaclesArray[player.cooY * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY)
         } else
-        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 0) {
+        if (player.cooY != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY - 1)
         } else
-        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 0) {
+        if (player.cooY != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY + 1)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 0) {
+        if (player.cooX != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 0) {
             desactivateLever(player.cooX + 1, player.cooY)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 0) {
+        if (player.cooX != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 0) {
             desactivateLever(player.cooX - 1, player.cooY)
         }
     } else { return false }
