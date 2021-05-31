@@ -137,6 +137,7 @@ function drawLeverClick(x, y) {
         if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(1, x, y)
+            makeTheLink()
         }
     }
 }
@@ -162,12 +163,12 @@ function drawTorchClick(x, y) {
 /**
  * MOVES 
  */
-let largeurCase = 31.5
+let largeurCase = 30
 
 function handleMouseMove(e) {
     mouseX = parseInt(e.clientX - offsetX);
     mouseY = parseInt(e.clientY - offsetY);
-    //console.log(wallTest, doorTest)
+    //console.log(mouseX, mouseY)
     //!Create a wall
     if (wallTest == true) {
         for (let index = 0; index < 15; index++) {

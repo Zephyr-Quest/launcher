@@ -15,14 +15,14 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
-    /*getMapByName("niveau_demonstration")
+    getMapByName("niveau_demonstration")
         .then((data) => {
             map = data.items
-                //console.log(data);
+            console.log(data);
         })
         .catch((err) => {
             console.error(err);
-        })*/
+        })
     waitingBeforeStart()
 }
 
