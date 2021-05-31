@@ -1,4 +1,4 @@
-const HOST_IP = 'localhost'
+const HOST_IP = '10.224.1.225'
 const API_ROOT = 'http://' + HOST_IP + '/ZephyrQuest/server/api.php'
 
 /**

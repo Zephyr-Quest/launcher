@@ -112,6 +112,9 @@ function pause() {
 function reset() {
     minute = 0
     second = 0
+    document.getElementById("timer").innerHTML = "00:00"
+
+    clearInterval(timeVar)
     timer()
     console.log("C'est parti ! (RESET)")
     document.getElementById("play_button").style.color = "gray"
@@ -170,9 +173,10 @@ const zeroPad = (num, places) => String(num).padStart(places, '0')
 
 let minute = 0
 let second = 0
+var timeVar
 
 function timer() {
-    setInterval(() => {
+    timeVar = setInterval(() => {
         if (second == 59) {
             minute++
             second = 0
