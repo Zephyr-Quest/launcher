@@ -3,8 +3,8 @@
  */
 
 function clearMap() {
-    for (let index = 0; index < obstaclesArray.length; index++) {
-        obstaclesArray[index] = undefined
+    for (let index = 0; index < 225; index++) {
+        obstaclesArray[index] = { id: undefined, x: undefined, y: undefined, usages: [] }
     }
     context.clearRect(0, 0, x * 2, y * 2)
 }

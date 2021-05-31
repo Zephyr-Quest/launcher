@@ -15,6 +15,7 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
+    clearMap()
     getMapByName("niveau_demonstration")
         .then((data) => {
             map = data.items

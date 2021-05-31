@@ -97,34 +97,34 @@ $(window).keydown(function(e) { // Key pushed
         player.right = false;
         player.backward = false;
         player.forward = false;
-        if (obstaclesArray[player.cooY * 15 + player.cooX] == 1) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY)
         } else
-        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX] == 1) {
+        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY - 1)
         } else
-        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX] == 1) {
+        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 1) {
             activateLever(player.cooX, player.cooY + 1)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX + 1] == 1) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 1) {
             activateLever(player.cooX + 1, player.cooY)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX - 1] == 1) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 1) {
             activateLever(player.cooX - 1, player.cooY)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX] == 0) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY)
         } else
-        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX] == 0) {
+        if (obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY - 1)
         } else
-        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX] == 0) {
+        if (obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id == 0) {
             desactivateLever(player.cooX, player.cooY + 1)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX + 1] == 0) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX + 1].id == 0) {
             desactivateLever(player.cooX + 1, player.cooY)
         } else
-        if (obstaclesArray[player.cooY * 15 + player.cooX - 1] == 0) {
+        if (obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 0) {
             desactivateLever(player.cooX - 1, player.cooY)
         }
     } else { return false }
@@ -211,7 +211,7 @@ function drawPlayerInDaGame(goTo) {
 
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
-        if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 2 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 1 && obstaclesArray[player.cooY * 15 + player.cooX - 1] != 0) {
+        if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 3 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 2 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 1 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 0) {
             animationChoose()
             clearPreviousPosition()
             player.x -= player.moveSize;
@@ -220,7 +220,7 @@ function updateStageObject() {
         }
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
-        if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 3 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 2 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 1 && obstaclesArray[player.cooY * 15 + player.cooX + 1] != 0) {
+        if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 3 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 2 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 1 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 0) {
             animationChoose()
             clearPreviousPosition()
             player.x += player.moveSize;
@@ -229,7 +229,7 @@ function updateStageObject() {
         }
     }
     if (player.forward && player.y - player.moveSize > 0) {
-        if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 2 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 1 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX] != 0) {
+        if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 3 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 2 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 1 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 0) {
             animationChoose()
             clearPreviousPosition()
             player.y -= player.moveSize;
@@ -238,7 +238,7 @@ function updateStageObject() {
         }
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
-        if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 3 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 2 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 1 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX] != 0) {
+        if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 3 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 2 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 1 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 0) {
             clearPreviousPosition()
             animationChoose()
             player.y += player.moveSize;

@@ -21,8 +21,8 @@ var obstacle = {
  * !OBSTACLES CREATION 
  */
 function initializeObstacles() {
-    clearMap()
     obstaclesArray.splice(0, 225)
+    clearMap()
     for (let index = 0; index < map.length; index++) {
         if (map[index].id == 3) {
             addObstacle(map[index].id, map[index].x, map[index].y)
@@ -57,15 +57,19 @@ function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
 }
 
 function checkObstacles() {
-    id = obstaclesArray[player.cooY * 15 + player.cooX]
-    switch (id) {
-        case 4:
-            reset()
-            player.x = startX
-            player.y = startY
-            player.cooX = 0
-            player.cooY = 7
-            break;
+    try {
+        id = obstaclesArray[player.cooY * 15 + player.cooX].id
+        switch (id) {
+            case 4:
+                reset()
+                player.x = startX
+                player.y = startY
+                player.cooX = 0
+                player.cooY = 7
+                break;
+        }
+    } catch (error) {
+        return true
     }
 }
 
@@ -75,25 +79,27 @@ function createLever(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = id
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
 }
 
 function createDoor(xpos, ypos, id) {
-    if ((obstaclesArray[ypos * 15 + xpos - 1] == 3 && obstaclesArray[ypos * 15 + xpos + 1] == 3) || (xpos == 0 && obstaclesArray[ypos * 15 + xpos + 1] == 3) || (xpos == 14 && obstaclesArray[ypos * 15 + xpos - 1] == 3)) { // Door on x axis
+    if ((obstaclesArray[ypos * 15 + xpos - 1].id == 3 && obstaclesArray[ypos * 15 + xpos + 1].id == 3) || (xpos == 0 && obstaclesArray[ypos * 15 + xpos + 1].id == 3) || (xpos == 14 && obstaclesArray[ypos * 15 + xpos - 1].id == 3)) { // Door on x axis
         const image = new Image();
         image.src = 'img/obstacles/Door_closedX.png';
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = id
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
 
-    } else if ((obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && obstaclesArray[(ypos + 1) * 15 + xpos] == 3) || (obstaclesArray[(ypos - 1) * 15 + xpos] == 3 && ypos == 14) || (obstaclesArray[(ypos + 1) * 15 + xpos] == 3 && ypos == 0)) { // Door on y axis
+
+    } else if ((obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && obstaclesArray[(ypos + 1) * 15 + xpos].id == 3) || (obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && ypos == 14) || (obstaclesArray[(ypos + 1) * 15 + xpos].id == 3 && ypos == 0)) { // Door on y axis
         const image = new Image();
         image.src = 'img/obstacles/Door_closedY.png';
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = id
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+
 
     }
 }
@@ -104,7 +110,8 @@ function createWall(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = id
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+
 
 
 }
@@ -115,7 +122,8 @@ function createHole(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = id
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+
 
 }
 
@@ -126,7 +134,8 @@ function createTorch(xpos, ypos, id) {
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = id
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+
     }
 }
 
@@ -155,10 +164,10 @@ function lightsOnPlayer() {
  */
 
 function checkTorch() {
-    if (obstaclesArray[player.cooY * 15 + player.cooX] == 5) { //If torch on our way
+    if (obstaclesArray[player.cooY * 15 + player.cooX].id == 5) { //If torch on our way
         player.torch += 1
             //saveArray = obstaclesArray
-        obstaclesArray[player.cooY * 15 + player.cooX] = undefined
+        obstaclesArray[player.cooY * 15 + player.cooX].id = undefined
         context.clearRect(player.cooX * 100 - 10, player.cooY * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
         light.width += 100;
     }
@@ -169,7 +178,7 @@ function checkTorch() {
  */
 
 function openDoor(xpos, ypos) {
-    obstaclesArray[ypos * 15 + xpos] = undefined
+    obstaclesArray[ypos * 15 + xpos].id = undefined
     context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20)
 }
 
@@ -183,7 +192,7 @@ function closeDoor(xpos, ypos) {
 let doorState = undefined
 
 function isOpen(xpos, ypos) {
-    if (obstaclesArray[ypos * 15 + xpos] === undefined) {
+    if (obstaclesArray[ypos * 15 + xpos].id === undefined) {
         return true
     } else {
         return false
@@ -198,7 +207,7 @@ function activateLever(xpos, ypos) {
         context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = 0
+    obstaclesArray[ypos * 15 + xpos].id = 0
     for (let index = 0; index < map.length; index++) {
         if (map[index].x == xpos && map[index].y == ypos) {
             for (let i = 0; i < map[index].usages.length; i++) {
@@ -223,7 +232,7 @@ function desactivateLever(xpos, ypos) {
         context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = 1
+    obstaclesArray[ypos * 15 + xpos].id = 1
     for (let index = 0; index < map.length; index++) {
         if (map[index].x == xpos && map[index].y == ypos) {
             for (let i = 0; i < map[index].usages.length; i++) {
