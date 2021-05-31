@@ -2,6 +2,8 @@
  * !MAKER ANIM START
  */
 
+const SIZE_MAP = 15
+
 let maker_button = document.getElementById("maker_button")
 let maker_panel = document.getElementById("container_make")
 let wall_button = document.getElementById("add_wall")
@@ -137,7 +139,6 @@ function drawLeverClick(x, y) {
         if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(1, x, y)
-            makeTheLink()
         }
     }
 }
@@ -158,6 +159,88 @@ function drawTorchClick(x, y) {
             addObstacle(5, x, y)
         }
     }
+}
+
+/**
+ * !Link a lever to a door by editing 'obstaclesArray'
+ * @param {int} lever_x
+ * @param {int} lever_y
+ * @param {int} door_x
+ * @param {int} door_y
+ */
+function linkToDoor(lever_x, lever_y, door_x, door_y){
+    const idx_lever = lever_y * SIZE_MAP + lever_x
+    const idx_door = door_y * SIZE_MAP + door_x
+    
+    // Check params
+    if (obstaclesArray[idx_lever].id === undefined || obstaclesArray[idx_door].id === undefined)
+        return
+    
+    // Add the door to the lever usages
+    obstaclesArray[idx_lever].usages.push({
+        id: obstaclesArray[idx_door].id,
+        x: obstaclesArray[idx_door].x,
+        y: obstaclesArray[idx_door].y,
+        usages: []
+    })
+    // Add the lever to the door usages
+    obstaclesArray[idx_door].usages.push({
+        id: obstaclesArray[idx_lever].id,
+        x: obstaclesArray[idx_lever].x,
+        y: obstaclesArray[idx_lever].y,
+        usages: []
+    })
+}
+
+/**
+ * Turn the map array to a server friendly array
+ * @param {Object[]} obstacles 
+ * @returns The items array to send to the server
+ */
+function toItemsArray(obstacles){
+    let items = []
+    for (let y = 0; y < SIZE_MAP; y++) {
+        for (let x = 0; x < SIZE_MAP; x++) {
+            const el = obstacles[y * SIZE_MAP + x]
+            if(el.id !== undefined)
+                items.push(el)
+        }        
+    }
+    return items
+}
+
+/**
+ * Upload the current maked map
+ * @param {String} name The map name
+ * @param {String} author The maker name
+ */
+function uploadCurrentMap(name, author){
+    // The map object
+    const map = {
+        name,
+        author,
+        items: toItemsArray(obstaclesArray)
+    }
+    // Upload this map to the server
+    uploadNewMap(map)
+        .then(() => console.log('Map uploaded !'))
+        .catch((err) => {
+            alert("Error...")
+            console.error(err)
+        })
+}
+
+/**
+ * !DEBUG FUNCTIONS
+ */
+function findItem(id){
+    for (let y = 0; y < SIZE_MAP; y++) {
+        for (let x = 0; x < SIZE_MAP; x++) {
+            const el = obstaclesArray[y * SIZE_MAP + x]
+            if(el.id === id) return el
+        }        
+    }
+    return null
 }
 
 /**
