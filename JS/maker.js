@@ -193,6 +193,44 @@ function linkToDoor(lever_x, lever_y, door_x, door_y){
 }
 
 /**
+ * Turn the map array to a server friendly array
+ * @param {Object[]} obstacles 
+ * @returns The items array to send to the server
+ */
+function toItemsArray(obstacles){
+    let items = []
+    for (let y = 0; y < SIZE_MAP; y++) {
+        for (let x = 0; x < SIZE_MAP; x++) {
+            const el = obstacles[y * SIZE_MAP + x]
+            if(el.id !== undefined)
+                items.push(el)
+        }        
+    }
+    return items
+}
+
+/**
+ * Upload the current maked map
+ * @param {String} name The map name
+ * @param {String} author The maker name
+ */
+function uploadCurrentMap(name, author){
+    // The map object
+    const map = {
+        name,
+        author,
+        items: toItemsArray(obstaclesArray)
+    }
+    // Upload this map to the server
+    uploadNewMap(map)
+        .then(() => console.log('Map uploaded !'))
+        .catch((err) => {
+            alert("Error...")
+            console.error(err)
+        })
+}
+
+/**
  * !DEBUG FUNCTIONS
  */
 function findItem(id){

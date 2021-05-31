@@ -1,4 +1,5 @@
-const API_ROOT = 'http://10.224.1.225/ZephyrQuest/server/api.php'
+const HOST_IP = 'localhost'
+const API_ROOT = 'http://' + HOST_IP + '/ZephyrQuest/server/api.php'
 
 /**
  * Get all saved maps in the database
