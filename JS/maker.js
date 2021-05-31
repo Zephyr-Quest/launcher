@@ -116,6 +116,7 @@ function addTorch() {
 
 function drawWallClick(x, y) {
     document.onclick = () => {
+        if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(3, x, y)
         }
@@ -124,6 +125,7 @@ function drawWallClick(x, y) {
 
 function drawDoorClick(x, y) {
     document.onclick = () => {
+        if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(2, x, y)
         }
@@ -132,6 +134,7 @@ function drawDoorClick(x, y) {
 
 function drawLeverClick(x, y) {
     document.onclick = () => {
+        if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(1, x, y)
         }
@@ -140,6 +143,7 @@ function drawLeverClick(x, y) {
 
 function drawHoleClick(x, y) {
     document.onclick = () => {
+        if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(4, x, y)
         }
@@ -148,6 +152,7 @@ function drawHoleClick(x, y) {
 
 function drawTorchClick(x, y) {
     document.onclick = () => {
+        if (!canvaOver) { return false }
         if (obstaclesArray[y * 15 + x] === undefined) {
             addObstacle(5, x, y)
         }
@@ -229,6 +234,13 @@ function handleMouseMove(e) {
         }
     }
 }
+let canvaOver = false
+document.getElementById("obstacles").addEventListener("mouseover", function() {
+    canvaOver = true
+})
+document.getElementById("obstacles").addEventListener("mouseout", function() {
+    canvaOver = false
+})
 
 $("#obstacles").mousemove(function(e) {
     handleMouseMove(e);

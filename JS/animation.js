@@ -387,12 +387,6 @@ function gameLostAnimation() {
     }, 1000);
 }
 /**
- * !POINTS
- */
-/**
- * !TIMER
- */
-/**
  * !NUMBER OF TORCHES 
  */
 /**
