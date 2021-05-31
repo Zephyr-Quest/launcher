@@ -117,7 +117,7 @@ function addTorch() {
 function drawWallClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x] === undefined) {
+        if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(3, x, y)
         }
     }
@@ -126,7 +126,7 @@ function drawWallClick(x, y) {
 function drawDoorClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x] === undefined) {
+        if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(2, x, y)
         }
     }
@@ -135,7 +135,7 @@ function drawDoorClick(x, y) {
 function drawLeverClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x] === undefined) {
+        if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(1, x, y)
             makeTheLink()
         }
@@ -145,7 +145,7 @@ function drawLeverClick(x, y) {
 function drawHoleClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x] === undefined) {
+        if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(4, x, y)
         }
     }
@@ -154,7 +154,7 @@ function drawHoleClick(x, y) {
 function drawTorchClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x] === undefined) {
+        if (obstaclesArray[y * 15 + x].id === undefined) {
             addObstacle(5, x, y)
         }
     }
