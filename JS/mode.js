@@ -83,9 +83,11 @@ function init() {
     ) {
         playing = true
         document.getElementById("play_button").style.color = "gray"
+        document.getElementById("play_button").setAttribute("disabled", "")
         document.getElementById("pause_button").style.color = "white"
         document.getElementById("reset_button").style.color = "white"
     } else {
+        document.getElementById("play_button").setAttribute("disabled", "")
         document.getElementById("play_button").style.color = "gray"
         document.getElementById("pause_button").style.color = "white"
         document.getElementById("reset_button").style.color = "white"
@@ -98,12 +100,14 @@ function init() {
 
 function pause() {
     console.log("PAUSE")
+    document.getElementById("timer").innerHTML = minute + ":" + second
+    clearInterval(timeVar)
+    timerPlay = false
     document.getElementById("play_button").style.color = "white"
     document.getElementById("pause_button").style.color = "gray"
     document.getElementById("reset_button").style.color = "white"
     playing = false;
 }
-
 
 /**
  * !RESET GAME
@@ -113,8 +117,8 @@ function reset() {
     minute = 0
     second = 0
     document.getElementById("timer").innerHTML = "00:00"
-
     clearInterval(timeVar)
+    timerPlay = false
     timer()
     console.log("C'est parti ! (RESET)")
     document.getElementById("play_button").style.color = "gray"
@@ -174,18 +178,22 @@ const zeroPad = (num, places) => String(num).padStart(places, '0')
 let minute = 0
 let second = 0
 var timeVar
+var timerPlay = false
 
 function timer() {
-    timeVar = setInterval(() => {
-        if (second == 59) {
-            minute++
-            second = 0
-        } else { second++ }
-        second = zeroPad(second, 2)
-        minute = zeroPad(minute, 2)
-        string = minute + ":" + second
-        document.getElementById("timer").innerHTML = string
-    }, 1000);
+    if (!timerPlay) {
+        timeVar = setInterval(() => {
+            if (second == 59) {
+                minute++
+                second = 0
+            } else { second++ }
+            second = zeroPad(second, 2)
+            minute = zeroPad(minute, 2)
+            string = minute + ":" + second
+            document.getElementById("timer").innerHTML = string
+            timerPlay = true
+        }, 1000);
+    }
 
 }
 
