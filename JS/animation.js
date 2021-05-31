@@ -377,13 +377,9 @@ function animWaitingMaze() {
  */
 
 function gameLostAnimation() {
-    message = document.getElementById("gamelost").style
-    message.visibility = "visible"
-    message.opacity = 1;
-    message.marginTop = "45%"
+    document.getElementById("gamelost").style.display = "flex"
     setTimeout(() => {
-        message.visibility = "hidden"
-        message.opacity = 0;
+        document.getElementById("gamelost").style.display = "none"
     }, 1000);
 }
 /**

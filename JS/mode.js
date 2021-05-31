@@ -16,7 +16,7 @@ function waitingBeforeStart() {
 }
 window.onload = () => {
     clearMap()
-    getMapByName("niveau_demonstration")
+    getMapByName("map1")
         .then((data) => {
             map = data.items
             console.log(data);
@@ -156,6 +156,7 @@ function checkEnd() {
     if (player.cooX == endX && player.cooY == endY) {
         console.log("Bien joué ! (FIN)")
         playing = false
+        document.getElementById("gamewin").style.display = "flex"
     }
 }
 
@@ -187,10 +188,10 @@ function timer() {
 /**
  * !NUMBER OF TRY
  */
-let numberOfTry = 100
+let numberOfTry = 150
 
 function tryNumber() {
     numberOfTry--
     let r_shots = "Remaining Shots : " + numberOfTry
-    document.getElementById("r_shots").innerHtml = r_shots
+    document.getElementById("r_shots").innerHTML = r_shots
 }

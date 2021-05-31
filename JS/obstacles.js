@@ -62,6 +62,7 @@ function checkObstacles() {
         switch (id) {
             case 4:
                 reset()
+                gameLostAnimation()
                 player.x = startX
                 player.y = startY
                 player.cooX = 0
@@ -128,7 +129,7 @@ function createHole(xpos, ypos, id) {
 }
 
 function createTorch(xpos, ypos, id) {
-    if (obstaclesArray[ypos * 15 + xpos] === undefined) {
+    if (obstaclesArray[ypos * 15 + xpos].id === undefined) {
         const image = new Image();
         image.src = 'img/obstacles/Torche.png';
         image.onload = () => {

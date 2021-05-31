@@ -53,18 +53,6 @@ canvas {
     position: absolute;
 }
 
-#gamelost {
-    color: red;
-    text-align: center;
-    width: 100%;
-    position: absolute;
-    margin-top: 45%;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 1s
-}
-
 
 /*______________ELEMENT DE LA PAGE EN GENERAL_________*/
 
@@ -285,4 +273,54 @@ td {
         cursor: pointer;
         border: 2px solid black
     }
+}
+
+
+/* MODALS */
+
+#gamewin {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.897);
+    top: 0;
+    left: 0;
+    color: black;
+    font-weight: bold;
+    font-family: 'KoHo', sans-serif;
+    padding: 30px 60px 30px 60px;
+    flex-direction: column;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border: black solid 2px;
+    button {
+        background-color: transparent;
+        border: 2px #f5b815 solid;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    button:hover {
+        cursor: pointer;
+    }
+}
+
+#gamelost {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.897);
+    top: 0;
+    left: 0;
+    color: black;
+    font-weight: bold;
+    font-family: 'KoHo', sans-serif;
+    padding: 30px 60px 30px 60px;
+    flex-direction: column;
+    text-align: center;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border: black solid 2px;
 }

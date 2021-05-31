@@ -248,4 +248,5 @@ function updateStageObject() {
     }
     checkEnd()
     checkObstacles();
+
 }
