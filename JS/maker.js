@@ -44,7 +44,6 @@ function initMaker() {
         playing = true
         document.getElementById("obstacles").style.zIndex = "0"
         document.getElementById("bouton_commande").style.display = "flex";
-
         count = 0
     }
     initMapMaker()
@@ -79,6 +78,7 @@ function addWall() {
     leverTest = false
     holeTest = false
     torchTest = false
+    eraseTest = false
 }
 
 function erase() {
@@ -253,9 +253,29 @@ function drawTorchClick(x, y) {
 function eraseObstacleMaker(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x].id != undefined) {
+        if (obstaclesArray[y * 15 + x].id != undefined && obstaclesArray[y * 15 + x].id != 1 && obstaclesArray[y * 15 + x].id != 2) {
             context.clearRect(x * 100 - 10, y * 100, 100, 100)
             obstaclesArray[y * 15 + x] = { id: undefined, x: undefined, y: undefined, usages: [] }
+        } else
+        if (obstaclesArray[y * 15 + x].id == 1 || obstaclesArray[y * 15 + x].id == 2) {
+            context.clearRect(x * 100 - 10, y * 100, 100, 100)
+            let usageWithout = obstaclesArray[y * 15 + x].usages
+            obstaclesArray[y * 15 + x] = {
+                id: undefined,
+                x: undefined,
+                y: undefined,
+                usages: []
+            }
+            for (var i = 0; i < usageWithout.length; i++) {
+                xtemp = usageWithout[i].x
+                ytemp = usageWithout[i].y
+                for (let index = 0; index < obstaclesArray[ytemp * 15 + xtemp].usages.length; index++) {
+                    if (x == obstaclesArray[ytemp * 15 + xtemp].usages[index].x && y == obstaclesArray[ytemp * 15 + xtemp].usages[index].y) {
+                        obstaclesArray[ytemp * 15 + xtemp].usages.splice(index, 1);
+                    }
+                }
+            }
+
         }
     }
 }
