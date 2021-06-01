@@ -11,17 +11,20 @@ let door_button = document.getElementById("add_door")
 let lever_button = document.getElementById("add_button")
 let hole_button = document.getElementById("add_hole")
 let torch_button = document.getElementById("add_torch")
+let erase_button = document.getElementById("erase")
 let wallTest = false,
     doorTest = false,
     leverTest = false,
     holeTest = false,
-    torchTest = false
+    torchTest = false,
+    eraseTest = false
 maker_button.addEventListener("click", initMaker)
 wall_button.addEventListener("click", addWall)
 door_button.addEventListener("click", addDoor)
 lever_button.addEventListener("click", addLever)
 hole_button.addEventListener("click", addHole)
 torch_button.addEventListener("click", addTorch)
+erase_button.addEventListener("click", erase)
 let count = 0
 
 function initMaker() {
@@ -32,12 +35,16 @@ function initMaker() {
         maker_panel.style.marginLeft = "calc(50vw - 50vh)";
         playing = false
         count = 1
+        document.getElementById("bouton_commande").style.display = "none";
+
     } else {
         maker_button.innerHTML = "MAKE"
         maker_panel.style.display = "none";
         maker_panel.style.marginLeft = "calc(50vw)";
         playing = true
         document.getElementById("obstacles").style.zIndex = "0"
+        document.getElementById("bouton_commande").style.display = "flex";
+
         count = 0
     }
     initMapMaker()
@@ -59,6 +66,8 @@ function resetButtons() {
     hole_button.style.filter = "grayscale(1)"
     torch_button.style.border = "2px solid transparent"
     torch_button.style.filter = "grayscale(1)"
+    erase_button.style.border = "2px solid transparent"
+    erase_button.style.filter = "grayscale(1)"
 }
 
 function addWall() {
@@ -72,6 +81,18 @@ function addWall() {
     torchTest = false
 }
 
+function erase() {
+    resetButtons()
+    erase_button.style.border = "2px solid black"
+    erase_button.style.filter = "none"
+    doorTest = false
+    wallTest = false
+    leverTest = false
+    holeTest = false
+    torchTest = false
+    eraseTest = true
+}
+
 function addDoor() {
     resetButtons()
     door_button.style.border = "2px solid black"
@@ -81,6 +102,7 @@ function addDoor() {
     leverTest = false
     holeTest = false
     torchTest = false
+    eraseTest = false
 }
 
 function addLever() {
@@ -91,6 +113,7 @@ function addLever() {
     wallTest = false
     leverTest = true
     holeTest = false
+    eraseTest = false
     torchTest = false
 }
 
@@ -102,6 +125,7 @@ function addHole() {
     wallTest = false
     leverTest = false
     holeTest = true
+    eraseTest = false
     torchTest = false
 }
 
@@ -112,6 +136,7 @@ function addTorch() {
     doorTest = false
     wallTest = false
     leverTest = false
+    eraseTest = false
     holeTest = false
     torchTest = true
 }
@@ -225,6 +250,16 @@ function drawTorchClick(x, y) {
     }
 }
 
+function eraseObstacleMaker(x, y) {
+    document.onclick = () => {
+        if (!canvaOver) { return false }
+        if (obstaclesArray[y * 15 + x].id != undefined) {
+            context.clearRect(x * 100 - 10, y * 100, 100, 100)
+            obstaclesArray[y * 15 + x] = { id: undefined, x: undefined, y: undefined, usages: [] }
+        }
+    }
+}
+
 /**
  * !Link a lever to a door by editing 'obstaclesArray'
  * @param {int} lever_x
@@ -329,6 +364,19 @@ function handleMouseMove(e) {
                 for (let index2 = 0; index2 < 15; index2++) {
                     if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
                         drawWallClick(index, index2)
+                    }
+                }
+            }
+
+        }
+    }
+    //!DELETE 
+    if (clicked && eraseTest == true) {
+        for (let index = 0; index < 15; index++) {
+            if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
+                for (let index2 = 0; index2 < 15; index2++) {
+                    if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
+                        eraseObstacleMaker(index, index2)
                     }
                 }
             }
