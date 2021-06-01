@@ -7,7 +7,7 @@ let obstaclesArray = []
 var context = canvasObstacles.getContext("2d");
 let doorIndex = 0
 let leverIndex = 0
-let saveArray = []
+let saveUsage = []
 
 /**
  * !Game settings
@@ -80,7 +80,8 @@ function createLever(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+    saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 }
 
 function createDoor(xpos, ypos, id) {
@@ -90,7 +91,8 @@ function createDoor(xpos, ypos, id) {
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 
 
     } else if ((obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && obstaclesArray[(ypos + 1) * 15 + xpos].id == 3) || (obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && ypos == 14) || (obstaclesArray[(ypos + 1) * 15 + xpos].id == 3 && ypos == 0)) { // Door on y axis
@@ -99,7 +101,8 @@ function createDoor(xpos, ypos, id) {
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 
 
     }
@@ -111,7 +114,8 @@ function createWall(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+    saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 
 
 
@@ -123,7 +127,8 @@ function createHole(xpos, ypos, id) {
     image.onload = () => {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+    saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+    obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 
 
 }
@@ -135,7 +140,8 @@ function createTorch(xpos, ypos, id) {
         image.onload = () => {
             context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
         }
-        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: [] }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
 
     }
 }

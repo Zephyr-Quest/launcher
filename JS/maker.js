@@ -157,9 +157,7 @@ function drawLeverClick(x, y) {
             console.log("hey")
             addObstacle(1, x, y)
             clicked = false
-            setTimeout(() => {
-                darkenExcept(2)
-            }, 50)
+            darkenExcept(2)
         } else {
             if (clicked == false) {
                 for (let index = 0; index < 15; index++) {
@@ -184,8 +182,8 @@ function darkenExcept(id) {
     for (let index = 0; index < 15; index++) {
         for (let index2 = 0; index2 < 15; index2++) {
             context.fillStyle = "rgba(0,0,0,.6)";
-            if (obstaclesArray[index2 * 15 + index].id != 2) {
-                context.fillRect(index * 100 - 10, index2 * 100, 100, 100);
+            if (obstaclesArray[index * 15 + index2].id != 2) {
+                context.fillRect(index2 * 100 - 10, index * 100, 100, 100);
             }
         }
     }
@@ -194,8 +192,12 @@ function darkenExcept(id) {
 function resetObstacleAfterLink() {
     for (let index = 0; index < 15; index++) {
         for (let index2 = 0; index2 < 15; index2++) {
-            context.clearRect(index * 100 - 10, index2 * 100, 100, 100)
-            addObstacle(obstaclesArray[index2 * 15 + index].id, obstaclesArray[index2 * 15 + index].x, obstaclesArray[index2 * 15 + index].y)
+            if (obstaclesArray[index * 15 + index2].id != 2) {
+                context.clearRect(index2 * 100 - 10, index * 100, 100, 100)
+            }
+            if (obstaclesArray[index * 15 + index2].id != 2) {
+                addObstacle(obstaclesArray[index * 15 + index2].id, obstaclesArray[index * 15 + index2].x, obstaclesArray[index * 15 + index2].y)
+            }
         }
     }
 }
