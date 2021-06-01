@@ -93,8 +93,6 @@ function createDoor(xpos, ypos, id) {
         }
         saveUsage = obstaclesArray[ypos * 15 + xpos].usages
         obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
-
-
     } else if ((obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && obstaclesArray[(ypos + 1) * 15 + xpos].id == 3) || (obstaclesArray[(ypos - 1) * 15 + xpos].id == 3 && ypos == 14) || (obstaclesArray[(ypos + 1) * 15 + xpos].id == 3 && ypos == 0)) { // Door on y axis
         const image = new Image();
         image.src = 'img/obstacles/Door_closedY.png';
@@ -103,8 +101,49 @@ function createDoor(xpos, ypos, id) {
         }
         saveUsage = obstaclesArray[ypos * 15 + xpos].usages
         obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
+    }
+}
 
-
+function createDoorBorder(xpos, ypos, id) {
+    if (xpos == 0 && obstaclesArray[ypos * 15 + xpos + 1].id == 3) {
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedX.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
+        return true
+    }
+    if (xpos == 14 && obstaclesArray[ypos * 15 + xpos - 1].id == 3) {
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedX.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
+        return true
+    }
+    if (ypos == 0 && obstaclesArray[(ypos + 1) * 15 + xpos].id == 3) {
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedY.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
+        return true
+    }
+    if (ypos == 14 && obstaclesArray[(ypos - 1) * 15 + xpos].id == 3) {
+        const image = new Image();
+        image.src = 'img/obstacles/Door_closedY.png';
+        image.onload = () => {
+            context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        }
+        saveUsage = obstaclesArray[ypos * 15 + xpos].usages
+        obstaclesArray[ypos * 15 + xpos] = { id: id, x: xpos, y: ypos, usages: saveUsage }
+        return true
     }
 }
 

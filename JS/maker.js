@@ -128,8 +128,13 @@ function drawWallClick(x, y) {
 function drawDoorClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
+        console.log("door" + x, y)
         if (obstaclesArray[y * 15 + x].id === undefined) {
-            addObstacle(2, x, y)
+            if (x != 0 && x != 14 && y != 0 && y != 14) {
+                createDoor(x, y, 2);
+            } else {
+                createDoorBorder(x, y, 2)
+            }
         }
     }
 }
