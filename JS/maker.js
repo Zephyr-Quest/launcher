@@ -133,12 +133,69 @@ function drawDoorClick(x, y) {
         }
     }
 }
+let IsAnyDoorAvailable = () => {
+    for (let index = 0; index < obstaclesArray.length; index++) {
+        if (obstaclesArray[index].id == 2) {
+            return true
+        }
+    }
+    document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+    document.getElementById("gamelost").style.display = "flex"
+    setTimeout(() => {
+        document.getElementById("gamelost").style.display = "none"
+        document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+
+    }, 1000);
+    return false
+}
 
 function drawLeverClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        if (obstaclesArray[y * 15 + x].id === undefined) {
+
+        if (clicked == true && obstaclesArray[y * 15 + x].id === undefined && IsAnyDoorAvailable()) {
+            console.log("hey")
             addObstacle(1, x, y)
+            clicked = false
+            setTimeout(() => {
+                darkenExcept(2)
+            }, 50)
+        } else {
+            if (clicked == false) {
+                for (let index = 0; index < 15; index++) {
+                    if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
+                        for (let index2 = 0; index2 < 15; index2++) {
+                            if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
+                                //design
+                                clicked = true
+                                console.log(obstaclesArray[index2 * 15 + index].id)
+                                linkToDoor(x, y, index, index2)
+                                resetObstacleAfterLink()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function darkenExcept(id) {
+    for (let index = 0; index < 15; index++) {
+        for (let index2 = 0; index2 < 15; index2++) {
+            context.fillStyle = "rgba(0,0,0,.6)";
+            if (obstaclesArray[index2 * 15 + index].id != 2) {
+                context.fillRect(index * 100 - 10, index2 * 100, 100, 100);
+            }
+        }
+    }
+}
+
+function resetObstacleAfterLink() {
+    for (let index = 0; index < 15; index++) {
+        for (let index2 = 0; index2 < 15; index2++) {
+            context.clearRect(index * 100 - 10, index2 * 100, 100, 100)
+            addObstacle(obstaclesArray[index2 * 15 + index].id, obstaclesArray[index2 * 15 + index].x, obstaclesArray[index2 * 15 + index].y)
         }
     }
 }
@@ -167,29 +224,34 @@ function drawTorchClick(x, y) {
  * @param {int} lever_y
  * @param {int} door_x
  * @param {int} door_y
+ * @returns If it's ok or not (bool)
  */
-function linkToDoor(lever_x, lever_y, door_x, door_y){
+function linkToDoor(lever_x, lever_y, door_x, door_y) {
     const idx_lever = lever_y * SIZE_MAP + lever_x
     const idx_door = door_y * SIZE_MAP + door_x
-    
+
     // Check params
     if (obstaclesArray[idx_lever].id === undefined || obstaclesArray[idx_door].id === undefined)
-        return
-    
+        return false
+    if (obstaclesArray[idx_lever].id !== 1 || obstaclesArray[idx_door].id !== 2)
+        return false
+
     // Add the door to the lever usages
     obstaclesArray[idx_lever].usages.push({
-        id: obstaclesArray[idx_door].id,
-        x: obstaclesArray[idx_door].x,
-        y: obstaclesArray[idx_door].y,
-        usages: []
-    })
-    // Add the lever to the door usages
+            id: obstaclesArray[idx_door].id,
+            x: obstaclesArray[idx_door].x,
+            y: obstaclesArray[idx_door].y,
+            usages: []
+        })
+        // Add the lever to the door usages
     obstaclesArray[idx_door].usages.push({
         id: obstaclesArray[idx_lever].id,
         x: obstaclesArray[idx_lever].x,
         y: obstaclesArray[idx_lever].y,
         usages: []
     })
+
+    return true
 }
 
 /**
@@ -197,14 +259,14 @@ function linkToDoor(lever_x, lever_y, door_x, door_y){
  * @param {Object[]} obstacles 
  * @returns The items array to send to the server
  */
-function toItemsArray(obstacles){
+function toItemsArray(obstacles) {
     let items = []
     for (let y = 0; y < SIZE_MAP; y++) {
         for (let x = 0; x < SIZE_MAP; x++) {
             const el = obstacles[y * SIZE_MAP + x]
-            if(el.id !== undefined)
+            if (el.id !== undefined)
                 items.push(el)
-        }        
+        }
     }
     return items
 }
@@ -214,14 +276,14 @@ function toItemsArray(obstacles){
  * @param {String} name The map name
  * @param {String} author The maker name
  */
-function uploadCurrentMap(name, author){
+function uploadCurrentMap(name, author) {
     // The map object
     const map = {
-        name,
-        author,
-        items: toItemsArray(obstaclesArray)
-    }
-    // Upload this map to the server
+            name,
+            author,
+            items: toItemsArray(obstaclesArray)
+        }
+        // Upload this map to the server
     uploadNewMap(map)
         .then(() => console.log('Map uploaded !'))
         .catch((err) => {
@@ -233,12 +295,12 @@ function uploadCurrentMap(name, author){
 /**
  * !DEBUG FUNCTIONS
  */
-function findItem(id){
+function findItem(id) {
     for (let y = 0; y < SIZE_MAP; y++) {
         for (let x = 0; x < SIZE_MAP; x++) {
             const el = obstaclesArray[y * SIZE_MAP + x]
-            if(el.id === id) return el
-        }        
+            if (el.id === id) return el
+        }
     }
     return null
 }
@@ -247,13 +309,14 @@ function findItem(id){
  * MOVES 
  */
 let largeurCase = 30
+let clicked = true
 
 function handleMouseMove(e) {
     mouseX = parseInt(e.clientX - offsetX);
     mouseY = parseInt(e.clientY - offsetY);
-    //console.log(mouseX, mouseY)
+    // console.log(mouseX, mouseY)
     //!Create a wall
-    if (wallTest == true) {
+    if (clicked && wallTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
                 for (let index2 = 0; index2 < 15; index2++) {
@@ -266,7 +329,7 @@ function handleMouseMove(e) {
         }
     }
     //!Create a door
-    if (doorTest == true) {
+    if (clicked && doorTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
                 for (let index2 = 0; index2 < 15; index2++) {
@@ -279,7 +342,7 @@ function handleMouseMove(e) {
         }
     }
     //!Create a Lever
-    if (leverTest == true) {
+    if (clicked && leverTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
                 for (let index2 = 0; index2 < 15; index2++) {
@@ -292,7 +355,7 @@ function handleMouseMove(e) {
         }
     }
     //!Create a Hole
-    if (holeTest == true) {
+    if (clicked && holeTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
                 for (let index2 = 0; index2 < 15; index2++) {
@@ -305,7 +368,7 @@ function handleMouseMove(e) {
         }
     }
     //!Create a Torch
-    if (torchTest == true) {
+    if (clicked && torchTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
                 for (let index2 = 0; index2 < 15; index2++) {
