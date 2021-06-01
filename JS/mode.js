@@ -207,3 +207,66 @@ function tryNumber() {
     let r_shots = "Remaining Shots : " + numberOfTry
     document.getElementById("r_shots").innerHTML = r_shots
 }
+
+/**
+ * !DAY NIGHT
+ */
+
+/**
+ * Get a specific cookie by its name
+ * @param  {String} cname The cookie name
+ * @return {String} The cookies value
+ */
+function getCookie(cname) {
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+/**
+ * Add / set a cookie
+ * @param {String} cname The cookie name
+ * @param {String} cvalue The cookie value
+ */
+function setCookie(cname, cvalue) {
+    let d = new Date();
+    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+daynighticon = document.getElementById("daynight")
+daynighticon.addEventListener("click", dayNight)
+let saveLightWidth
+let saveLightBig
+let saveLightSmall
+
+function dayNight() {
+
+    if (daynighticon.className == "fas fa-sun") {
+        daynighticon.className = "far fa-moon";
+        saveLightWidth = light.width
+        saveLightBig = light.background_big
+        saveLightSmall = light.background_small
+        light.background_big = 40000000
+        light.background_small = 40000000
+        sun()
+        lightsOnPlayer()
+    } else {
+        daynighticon.className = "fas fa-sun"
+        light.width = saveLightWidth
+        light.background_big = saveLightBig
+        light.background_small = saveLightSmall
+        lightsOnPlayer()
+    }
+}

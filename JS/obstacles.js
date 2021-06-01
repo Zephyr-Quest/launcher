@@ -206,9 +206,9 @@ function activateLever(xpos, ypos) {
     image.src = 'img/obstacles/Button_open.png';
     image.onload = () => {
         context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
-        context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
+        //context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
-    obstaclesArray[ypos * 15 + xpos].id = 0
+    obstaclesArray[ypos * 15 + xpos] = { id: undefined, x: undefined, y: undefined, usages: [] }
     for (let index = 0; index < map.length; index++) {
         if (map[index].x == xpos && map[index].y == ypos) {
             for (let i = 0; i < map[index].usages.length; i++) {
