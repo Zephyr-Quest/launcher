@@ -3,6 +3,7 @@
  */
 let cancelled = false
 let map = undefined
+let solutions = undefined
 
 function waitingBeforeStart() {
     ctx.clearRect(player.x - x / 2 / 2, player.y - y / 2, x, y);
@@ -32,6 +33,7 @@ function getStarted() {
         //     .then((data) => {
         //         map = data.items
         //         console.log(data);
+        // solutions=data.solutions
         //     })
         //     .catch((err) => {
         //         console.error(err);
@@ -225,7 +227,7 @@ function tryNumber() {
 }
 
 /**
- * !DAY NIGHT
+ * !cookie
  */
 
 /**
@@ -260,6 +262,9 @@ function setCookie(cname, cvalue) {
     const expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+/**
+ * !DAY NIGHT
+ */
 
 daynighticon = document.getElementById("daynight")
 daynighticon.addEventListener("click", dayNight)
@@ -326,4 +331,34 @@ function cutVolume() {
             volumeCount = 1
             break;
     }
+}
+
+
+/**
+ * !GIVE CLUE
+ */
+
+document.getElementById("giveClue").addEventListener("click", giveClue)
+
+function giveClue() {
+    console.log("INDICE")
+    pause()
+    for (let index = 0; index < solutions.length; index++) {
+        let xtempsol = solutions[index].x
+        let ytempsol = solutions[index].y
+        if (xtempsol != player.cooX && ytempsol != ytempsol) {
+            ctx.clearRect(xtempsol * 100 - 10, ytempsol * 100, 100, 100)
+        }
+    }
+    setTimeout(() => {
+        ctx.fillStyle = "black"
+        for (let index = 0; index < solutions.length; index++) {
+            let xtempsol = solutions[index].x
+            let ytempsol = solutions[index].y
+            if (xtempsol != player.cooX && ytempsol != ytempsol) {
+                ctx.fillRect(xtempsol * 100 - 10, ytempsol * 100, 100, 100)
+            }
+        }
+        init()
+    }, 2000);
 }
