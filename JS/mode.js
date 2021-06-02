@@ -25,7 +25,7 @@ function getStarted() {
     player.cooX = 0
     player.cooY = 7
     clearMap()
-    getMapByName("map1")
+    getMapByName("map2")
         .then((data) => {
             map = data.items
             console.log(data);
@@ -211,7 +211,7 @@ function timer() {
 /**
  * !NUMBER OF TRY
  */
-let numberOfTry = 150
+let numberOfTry = 3
 
 function tryNumber() {
     numberOfTry--

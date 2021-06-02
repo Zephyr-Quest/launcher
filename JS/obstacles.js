@@ -254,6 +254,18 @@ function isOpen(xpos, ypos) {
 }
 
 function activateLever(xpos, ypos) {
+    if (numberOfTry == 0) {
+        reset()
+        document.getElementById("gamelost").innerHTML = "YOU MADE TOO MANY INTERACTIONS !<br>YOU LOST !"
+        document.getElementById("gamelost").style.zIndex = "101"
+        document.getElementById("gamelost").style.display = "flex"
+        setTimeout(() => {
+            document.getElementById("gamelost").style.display = "none"
+            document.getElementById("gamelost").style.zIndex = "100"
+            document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+        }, 1000);
+        return false
+    }
     tryNumber()
     const image = new Image();
     image.src = 'img/obstacles/Button_open.png';
