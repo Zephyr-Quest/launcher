@@ -266,6 +266,13 @@ td {
   margin-left: calc(50vw - 0vh);
 }
 
+.container_make i {
+  color: black;
+  width: 100%;
+  font-size: 35px;
+  text-align: center;
+}
+
 .container_make img {
   padding: 10px;
   -webkit-filter: grayscale(1);

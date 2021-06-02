@@ -15,8 +15,16 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
+    getStarted()
+}
+
+function getStarted() {
+    player.x = startX
+    player.y = startY
+    player.cooX = 0
+    player.cooY = 7
     clearMap()
-    getMapByName("map1")
+    getMapByName("map2")
         .then((data) => {
             map = data.items
             console.log(data);
@@ -26,8 +34,6 @@ window.onload = () => {
         })
     waitingBeforeStart()
 }
-
-
 /**
  * !BEGIN GAME
  */
@@ -164,6 +170,9 @@ function checkEnd() {
         console.log("Bien joué ! (FIN)")
         playing = false
         document.getElementById("gamewin").style.display = "flex"
+        document.getElementById("timer").innerHTML = minute + ":" + second
+        clearInterval(timeVar)
+        timerPlay = false
     }
 }
 

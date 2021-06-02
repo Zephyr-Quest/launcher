@@ -264,6 +264,12 @@ td {
     background-color: rgba(252, 252, 252, 0.781);
     border: white 2px solid;
     margin-left: calc(50vw - 0vh);
+    i {
+        color: black;
+        width: 100%;
+        font-size: 35px;
+        text-align: center;
+    }
     img {
         padding: 10px;
         filter: grayscale(1);

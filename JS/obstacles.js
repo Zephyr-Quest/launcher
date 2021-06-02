@@ -42,7 +42,11 @@ function addObstacle(id, xpos, ypos) { //ID en fonction de l'obstacle
             createLever(xpos, ypos, id)
             break;
         case 2:
-            createDoor(xpos, ypos, id)
+            if (xpos != 0 && xpos != 14 && ypos != 0 && ypos != 14) {
+                createDoor(xpos, ypos, id);
+            } else {
+                createDoorBorder(xpos, ypos, id)
+            }
             break;
         case 3:
             createWall(xpos, ypos, id)
@@ -229,7 +233,11 @@ function openDoor(xpos, ypos) {
 }
 
 function closeDoor(xpos, ypos) {
-    createDoor(xpos, ypos, 2)
+    if (xpos != 0 && xpos != 14 && ypos != 0 && ypos != 14) {
+        createDoor(xpos, ypos, 2);
+    } else {
+        createDoorBorder(xpos, ypos, 2)
+    }
 }
 
 /**

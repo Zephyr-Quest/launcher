@@ -25,6 +25,7 @@ lever_button.addEventListener("click", addLever)
 hole_button.addEventListener("click", addHole)
 torch_button.addEventListener("click", addTorch)
 erase_button.addEventListener("click", erase)
+document.getElementById("resetMaker").addEventListener("click", resetMaker)
 let count = 0
 
 function initMaker() {
@@ -36,6 +37,7 @@ function initMaker() {
         playing = false
         count = 1
         document.getElementById("bouton_commande").style.display = "none";
+        document.getElementById("bottom_line").style.display = "none";
 
     } else {
         maker_button.innerHTML = "MAKE"
@@ -43,14 +45,22 @@ function initMaker() {
         maker_panel.style.marginLeft = "calc(50vw)";
         playing = true
         document.getElementById("obstacles").style.zIndex = "0"
+        document.getElementById("bottom_line").style.display = "flex";
         document.getElementById("bouton_commande").style.display = "flex";
         count = 0
+        cancelled = false
+        getStarted()
+        return false
     }
     initMapMaker()
 }
 
 function initMapMaker() {
     cancelled = true
+    clearMap()
+}
+
+function resetMaker() {
     clearMap()
 }
 
@@ -153,7 +163,6 @@ function drawWallClick(x, y) {
 function drawDoorClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-        console.log("door" + x, y)
         if (obstaclesArray[y * 15 + x].id === undefined) {
             if (x != 0 && x != 14 && y != 0 && y != 14) {
                 createDoor(x, y, 2);
@@ -179,36 +188,62 @@ let IsAnyDoorAvailable = () => {
     return false
 }
 
+
+
 function drawLeverClick(x, y) {
     document.onclick = () => {
         if (!canvaOver) { return false }
-
         if (clicked == true && obstaclesArray[y * 15 + x].id === undefined && IsAnyDoorAvailable()) {
-            console.log("hey")
             addObstacle(1, x, y)
             clicked = false
-            darkenExcept(2)
-        } else {
-            if (clicked == false) {
-                for (let index = 0; index < 15; index++) {
-                    if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
-                        for (let index2 = 0; index2 < 15; index2++) {
-                            if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
-                                //design
+            setTimeout(() => {
+                darkenExcept()
+                let saveUsagesForLeverInUse = obstaclesArray[y * 15 + x].usages
+                addObstacle(1, x, y)
+                obstaclesArray[y * 15 + x].usages = saveUsagesForLeverInUse
+            }, 10);
+        } else if (clicked == false) {
+            for (let index = 0; index < 15; index++) {
+                if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
+                    for (let index2 = 0; index2 < 15; index2++) {
+                        if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
+                            if (obstaclesArray[index2 * 15 + index].id == 1) {
+                                resetObstacleAfterLink()
                                 clicked = true
-                                console.log(obstaclesArray[index2 * 15 + index].id)
+                                return true
+                            }
+                        }
+                    }
+                }
+
+            }
+            for (let index = 0; index < 15; index++) {
+                if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
+                    for (let index2 = 0; index2 < 15; index2++) {
+                        if (largeurCase * (index2) < mouseY && mouseY < largeurCase * (index2 + 1)) {
+                            if (obstaclesArray[index2 * 15 + index].id == 2) {
+                                //clicked = true
                                 linkToDoor(x, y, index, index2)
                                 resetObstacleAfterLink()
+                                setTimeout(() => {
+                                    darkenExcept()
+                                    makeRedDoors(x, y)
+                                    let saveUsagesForLeverInUse = obstaclesArray[y * 15 + x].usages
+                                    addObstacle(1, x, y)
+                                    obstaclesArray[y * 15 + x].usages = saveUsagesForLeverInUse
+                                }, 10);
                             }
                         }
                     }
                 }
             }
         }
+
     }
+
 }
 
-function darkenExcept(id) {
+function darkenExcept() {
     for (let index = 0; index < 15; index++) {
         for (let index2 = 0; index2 < 15; index2++) {
             context.fillStyle = "rgba(0,0,0,.6)";
@@ -219,15 +254,28 @@ function darkenExcept(id) {
     }
 }
 
+function makeRedDoors(leverx, levery) {
+    context.fillStyle = "rgba(255,0,0,0.3)";
+    for (let o = 0; o < obstaclesArray[levery * 15 + leverx].usages.length; o++) {
+        for (let index = 0; index < 15; index++) {
+            for (let index2 = 0; index2 < 15; index2++) {
+                if (obstaclesArray[levery * 15 + leverx].usages[o].x == obstaclesArray[index * 15 + index2].x && obstaclesArray[levery * 15 + leverx].usages[o].y == obstaclesArray[index * 15 + index2].y) {
+                    context.fillRect(obstaclesArray[index * 15 + index2].x * 100 - 10, obstaclesArray[index * 15 + index2].y * 100, 100, 100);
+                    let saveUsagesForLeverInUse = obstaclesArray[index * 15 + index2].usages
+                    addObstacle(2, index2, index)
+                    obstaclesArray[index * 15 + index2].usages = saveUsagesForLeverInUse
+                }
+
+            }
+        }
+    }
+}
+
 function resetObstacleAfterLink() {
     for (let index = 0; index < 15; index++) {
         for (let index2 = 0; index2 < 15; index2++) {
-            if (obstaclesArray[index * 15 + index2].id != 2) {
-                context.clearRect(index2 * 100 - 10, index * 100, 100, 100)
-            }
-            if (obstaclesArray[index * 15 + index2].id != 2) {
-                addObstacle(obstaclesArray[index * 15 + index2].id, obstaclesArray[index * 15 + index2].x, obstaclesArray[index * 15 + index2].y)
-            }
+            context.clearRect(index2 * 100 - 10, index * 100, 100, 100)
+            addObstacle(obstaclesArray[index * 15 + index2].id, obstaclesArray[index * 15 + index2].x, obstaclesArray[index * 15 + index2].y)
         }
     }
 }
