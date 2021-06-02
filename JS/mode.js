@@ -15,24 +15,27 @@ function waitingBeforeStart() {
 
 }
 window.onload = () => {
+    document.getElementById("music").volume = '0.2'
+    document.getElementById("music").play()
     getStarted()
 }
 
 function getStarted() {
+
     making = false
     player.x = startX
     player.y = startY
     player.cooX = 0
     player.cooY = 7
     clearMap()
-    getMapByName("map2")
-        .then((data) => {
-            map = data.items
-            console.log(data);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+        // getMapByName("map1")
+        //     .then((data) => {
+        //         map = data.items
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
+        //         console.error(err);
+        //     })
     waitingBeforeStart()
 }
 /**
@@ -40,6 +43,7 @@ function getStarted() {
  */
 
 function start() {
+    //document.getElementById("music").pause()
     document.getElementById("r_shots").innerHTML = "Remaining Shots : " + numberOfTry
     timer()
     console.log("C'est parti ! (START)")
@@ -121,6 +125,7 @@ function pause() {
  */
 
 function reset() {
+    numberOfTry = 3
     minute = 0
     second = 0
     document.getElementById("timer").innerHTML = "00:00"
@@ -170,7 +175,7 @@ function checkEnd() {
     if (player.cooX == endX && player.cooY == endY) {
         console.log("Bien joué ! (FIN)")
         playing = false
-        document.getElementById("title_win").innerHTML = "WELL DONE !<br>MAP FINIHED IN " + minute + ":" + second
+        document.getElementById("title_win").innerHTML = "WELL DONE !<br>MAP FINISHED IN " + minute + ":" + second
         document.getElementById("gamewin").style.display = "flex"
         document.getElementById("timer").innerHTML = minute + ":" + second
         clearInterval(timeVar)
@@ -283,5 +288,42 @@ function dayNight() {
         lightsOnPlayer()
         drawPlayerWait('right', player.x, player.y)
 
+    }
+}
+
+
+/**
+ * !SOUND
+ */
+
+document.getElementById("cut_volume").addEventListener("click", cutVolume)
+let volumeCount = 1
+
+function cutVolume() {
+    switch (volumeCount) {
+        case 1:
+            document.getElementById("cut_volume").className = "fas fa-volume-mute"
+            document.getElementById("engrenage").volume = '0'
+            document.getElementById("torche_prise").volume = "0"
+            document.getElementById("porte").volume = "0"
+            document.getElementById("bruits_pas_1").volume = "0"
+            document.getElementById("bruits_pas_2").volume = "0"
+            document.getElementById("bruits_divers").volume = "0"
+            document.getElementById("music").volume = '0'
+
+            volumeCount = 2
+            break;
+        case 2:
+            document.getElementById("cut_volume").className = "fas fa-volume-up"
+            document.getElementById("music").volume = '0.2'
+            document.getElementById("porte").volume = "1"
+            document.getElementById("torche_prise").volume = "1"
+            document.getElementById("bruits_pas_1").volume = "0.3"
+            document.getElementById("bruits_pas_2").volume = "0.3"
+            document.getElementById("bruits_divers").volume = "0.3"
+            document.getElementById("engrenage").volume = '.1'
+
+            volumeCount = 1
+            break;
     }
 }

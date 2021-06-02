@@ -460,7 +460,7 @@ function findItem(id) {
 /**
  * MOVES 
  */
-let largeurCase = 30
+let largeurCase = 31
 
 function handleMouseMove(e) {
     mouseX = parseInt(e.clientX - offsetX);

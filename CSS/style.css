@@ -1,65 +1,17 @@
 @charset "UTF-8";
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: red;
-}
-
-canvas {
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-}
-
-#myCanvas {
-  position: absolute;
-  height: 82vh;
-  width: 82vh;
-  margin: 14vh calc(50vw - 41vh) 0vh;
-  padding: 0;
-  z-index: 25;
-  background-image: url("../img/background_only.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#obstacles {
-  height: 49.25vh;
-  width: 49.5vh;
-  margin: calc(30vh + 3px) 0 0 calc(50vw - 24.5vh - 1px);
-  background-image: url("../img/Map.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
-  z-index: 5;
-}
-
-#lights {
-  background-color: transparent;
-  opacity: 1;
-  display: none;
-  z-index: 0;
-  position: absolute;
-}
-
-#play_button {
-  margin: 0;
-  width: 10%;
-  position: absolute;
-}
-
 /*______________ELEMENT DE LA PAGE EN GENERAL_________*/
 body {
+  -moz-user-select: none;
+  /*pour que le texte ne sois pas selectionnable*/
   background-color: black;
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: white;
+  background-image: url(img/maez-remove-black.jpeg);
+  background-size: 90%;
+  background-position: -380px 300px;
+  -webkit-user-select: none;
+  /* Chrome, Safari, Opéra depuis la version 15 */
 }
 
 .barre_haut {
@@ -67,10 +19,10 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+      justify-content: space-around;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .barre2 {
@@ -78,9 +30,61 @@ body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-  justify-content: space-around;
+      justify-content: space-around;
   text-align: center;
   margin-right: 0%;
+}
+
+.bouton a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Aclonica', sans-serif;
+  border: 4px solid #f5b815;
+  border-radius: 10px;
+  text-shadow: 1px 2px 3px black;
+  margin-left: 16%;
+  padding: 1% 7% 1%;
+}
+
+.bouton a:hover {
+  background-color: #f5b815;
+}
+
+@media screen and (max-width: 1024px) {
+  td {
+    display: block;
+  }
+  .barre2 {
+    text-align: center;
+  }
+  .barre_haut {
+    display: block;
+  }
+  .aventurier img {
+    display: none;
+  }
+  .bouton {
+    margin-bottom: 40rem;
+  }
+  body {
+    background-position: bottom;
+    background-size: 150%;
+  }
+  main {
+    margin-left: -10%;
+  }
+  footer {
+    position: relative;
+    padding-bottom: 0%;
+  }
+  .groupe p {
+    text-align: center;
+    width: 80%;
+    margin-bottom: 10%;
+    height: 20%;
+  }
 }
 
 .barre_haut a {
@@ -93,8 +97,8 @@ footer {
   position: fixed;
   bottom: 0;
   width: 99%;
-  padding-top: 2%;
-  height: 4.5%;
+  padding-bottom: 0%;
+  height: auto;
 }
 
 table {
@@ -102,14 +106,13 @@ table {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid none;
   border-collapse: collapse;
-  /*pour que les bordures soient fusionnées*/
 }
 
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid none;
   color: white;
   padding: 2.5rem;
   font-family: 'KoHo', sans-serif;
@@ -130,15 +133,29 @@ td {
   border-radius: 10px;
   background-color: #f5b815;
   text-shadow: 1px 2px 3px black;
-  color: white;
 }
 
 /*.bouton2:hover {
-    -webkit-transition: 1s;
-    transition: 1s;
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-}*/
+            transition: 1s;
+            transform: scale(1.2);
+        }*/
+.bouton10 a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Aclonica', sans-serif;
+  border: 4px solid #f5b815;
+  border-radius: 10px;
+  text-shadow: 1px 2px 3px black;
+  margin-left: 16%;
+  padding: 1% 5.5% 1%;
+}
+
+.bouton10 a:hover {
+  background-color: #f5b815;
+}
+
 .bouton1:hover a {
   color: #f5b815;
 }
@@ -192,237 +209,217 @@ td {
   letter-spacing: 0.15rem;
 }
 
-/*__________PAGE JEU _____________*/
-.fond_jeu {
-  margin-left: 12.5;
-  margin-top: -8%;
-  padding: 0%;
-  width: 75vh;
-  height: 75vh;
-}
-
-.bouton_commande {
-  width: 10vw;
-  text-align: left;
-  margin-left: calc(50vw + 42vh);
-  position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.play,
-.pause,
-.reset,
-.modenightday {
+.niveau a,
+.niveau2 a {
   font-size: 1.5rem;
-  padding-bottom: 5px;
-  cursor: pointer;
-  font-weight: 100;
-}
-
-.bottom_line table {
-  width: 20vw;
-  height: auto;
-  margin: 9vh 0 0 calc(50vw + 40vh);
-  padding: 0;
-}
-
-.bottom_line table td {
-  border: none;
+  font-family: 'KoHo', sans-serif;
   color: white;
-  padding: 0rem;
-  padding-right: 20px;
-  padding-left: 20px;
-  font-family: 'KoHo', sans-serif;
-  letter-spacing: 0.2rem;
+  text-decoration: none;
+  margin-bottom: 5%;
+  letter-spacing: 0.15rem;
+  padding: 0.7%;
 }
 
-.timer {
-  text-align: left;
+.niveau a:hover,
+.niveau2 a:hover {
+  color: #f5b815;
 }
 
-.r_shots {
-  text-align: left;
+.niveau {
+  margin-top: -1%;
+  margin-left: 15%;
+  margin-bottom: 2.5%;
 }
 
-/*_________ MAKER _________*/
-.container_make {
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  top: 0;
-  position: absolute;
-  margin-top: 14vh;
-  width: 6vh;
-  background-color: rgba(252, 252, 252, 0.781);
-  border: white 2px solid;
-  margin-left: calc(50vw - 0vh);
+.niveau2 {
+  margin-top: -2.3%;
+  margin-left: 17.4%;
+  margin-bottom: 2.5%;
 }
 
-.container_make i {
-  color: black;
-  width: 100%;
-  font-size: 35px;
+.flexrow0 {
+  color: white;
   text-align: center;
-}
-
-.container_make img {
-  padding: 10px;
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
-  border: 2px solid transparent;
-}
-
-.container_make img:hover {
-  -webkit-filter: none;
-          filter: none;
-  cursor: pointer;
-  border: 2px solid black;
-}
-
-/* MODALS */
-#gamewin {
-  display: none;
-  position: absolute;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.897);
-  top: 0;
-  left: 0;
-  color: black;
-  font-weight: bold;
+  border-radius: 10px;
+  margin-top: -15.5%;
+  margin-left: 15%;
+  padding: 1%;
+  margin-right: 65%;
+  resize: none;
   font-family: 'KoHo', sans-serif;
-  padding: 30px 60px 30px 60px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+}
+
+.flexrow0 input {
+  padding: 2.5%;
   text-align: center;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  border: black solid 2px;
-}
-
-#gamewin button {
-  background-color: transparent;
-  border: 2px #f5b815 solid;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-#gamewin button:hover {
-  cursor: pointer;
-}
-
-#gamelost {
-  display: none;
-  position: absolute;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.897);
-  top: 0;
-  left: 0;
-  color: black;
-  font-weight: bold;
-  font-family: 'KoHo', sans-serif;
-  padding: 30px 60px 30px 60px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: center;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  border: black solid 2px;
-}
-
-#askForSave {
-  display: none;
-  position: absolute;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.897);
-  top: 0;
-  left: 0;
-  color: black;
-  font-weight: bold;
-  font-family: 'KoHo', sans-serif;
-  padding: 30px 60px 30px 60px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: center;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-          transform: translateX(-50%) translateY(-50%);
-  border: black solid 2px;
-}
-
-#askForSave input {
-  background-color: white;
-  color: black;
-  font-family: 'KoHo', sans-serif;
+  border: 3px solid black;
+  background-color: rgba(255, 255, 255, 0.65);
   outline: none;
-  border: #f5b815 solid 2px;
-  padding: 10px;
-  width: calc(100% - 24px);
-  margin: 0;
 }
 
-#askForSave div {
-  padding-top: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-#askForSave div button {
-  width: calc(50% - 10px);
-  color: black;
-  border: #f5b815 solid 2px;
-  padding: 10px;
-}
-
-#askForSave div #cancel_save {
-  margin-left: 20px;
-}
-
-.instructions_maker {
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  top: 0;
-  position: absolute;
-  margin-top: 14vh;
-  width: 25vh;
-  background-color: rgba(252, 252, 252, 0.781);
-  border: white 2px solid;
-  margin-left: 75vw;
-  padding: 20px;
-  font-weight: bold;
+/*_______GESTIONNAIRE DE CONTACT_______________*/
+.contact h1 {
+  text-align: left;
+  margin-left: 25%;
+  font-size: 2.5rem;
+  text-shadow: 1px 2px 3px black;
   font-family: 'KoHo', sans-serif;
-  color: black;
-  text-align: justify;
+  letter-spacing: 0.15rem;
 }
 
-.instructions_maker ul {
-  padding: 0;
-  list-style: none;
+fieldset {
+  border-radius: 8px;
+  border: 2px solid #747a7e;
+  padding: 1.5%;
+  margin-right: 25%;
+  margin-left: 25%;
+  resize: none;
+}
+
+legend {
+  font-family: 'KoHo', sans-serif;
+  font-size: 1.3rem;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.flexrow1 {
+  margin-bottom: 1%;
+  font-family: 'KoHo', sans-serif;
+  padding-bottom: 2%;
+  resize: none;
+}
+
+.flexrow2 {
+  margin-top: -11%;
+  margin-left: 55%;
+  margin-bottom: 1%;
+  font-family: 'KoHo', sans-serif;
+  padding-bottom: 2%;
+  resize: none;
+}
+
+.flexrow3 textarea {
+  margin-left: 0%;
+  margin-right: 50%;
+  resize: none;
+  width: 95%;
+  height: 40%;
+}
+
+.flexrow3 {
+  margin-bottom: 1%;
+  font-family: 'KoHo', sans-serif;
+  resize: none;
+}
+
+@media screen and (max-width: 1024px) {
+  fieldset {
+    margin-left: 10%;
+    margin-right: 2%;
+  }
+  .flexrow1 {
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+  .flexrow2 {
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+  .flexrow3 {
+    margin-left: 10%;
+    margin-right: 25%;
+  }
+  .btn {
+    margin-top: 10%;
+  }
+  footer .groupe p {
+    display: none;
+  }
+  .regles {
+    margin-right: 5%;
+  }
+}
+
+.flexrow1 input,
+.flexrow2 input,
+.flexrow3 input {
+  outline: none;
+}
+
+input,
+textarea {
+  border: 2px solid #CCC;
+  border-radius: 5px;
+  font-family: 'KoHo', sans-serif;
+}
+
+input[type="nom"],
+input[type="email"] {
+  min-width: 30%;
+  max-width: 100%;
+  padding: 8px;
+  display: block;
+}
+
+textarea[type="commentaire"] {
+  padding: 8px;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+}
+
+.btn {
+  color: white;
+  text-decoration: none;
+  font-family: 'KoHo', sans-serif;
+  text-shadow: 1px 2px 3px black;
+  border-radius: 8px;
+  padding: 2% 2%;
+  font-size: 1rem;
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  border: 5px solid #f5b815;
+  background-color: rgba(255, 255, 255, 0);
+  margin-top: 8%;
+}
+
+.btn:hover {
+  background-color: #f5b815;
+}
+
+/*_______________RULES________*/
+.regles {
+  text-align: left;
+  margin-top: 10%;
+  margin-left: 16%;
+}
+
+.regles h1 {
+  font-size: 2.5rem;
+  text-shadow: 1px 2px 3px black;
+  font-family: 'KoHo', sans-serif;
+  padding: 0%;
+  margin-bottom: 2%;
+  letter-spacing: 0.15rem;
+}
+
+.regles h2 {
+  font-size: 1.7rem;
+  font-family: 'KoHo', sans-serif;
+  margin-bottom: 5%;
+  letter-spacing: 0.15rem;
+}
+
+.regles p {
+  font-size: 1.1rem;
+  font-family: 'KoHo', sans-serif;
+  text-align: justify;
+  margin-bottom: 5%;
+  letter-spacing: 0.15rem;
+  margin-right: 20%;
 }
 /*# sourceMappingURL=style.css.map */

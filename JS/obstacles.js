@@ -220,6 +220,8 @@ function checkTorch() {
         obstaclesArray[player.cooY * 15 + player.cooX].id = undefined
         context.clearRect(player.cooX * 100 - 10, player.cooY * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20);
         light.width += 100;
+        document.getElementById("torche_prise").play()
+
     }
 }
 
@@ -228,11 +230,13 @@ function checkTorch() {
  */
 
 function openDoor(xpos, ypos) {
+    document.getElementById("porte").play()
     obstaclesArray[ypos * 15 + xpos].id = undefined
     context.clearRect(xpos * 100 - 10, ypos * 100, player.moveSize * 2 - 20, player.moveSize * 2 - 20)
 }
 
 function closeDoor(xpos, ypos) {
+    document.getElementById("porte").play()
     if (xpos != 0 && xpos != 14 && ypos != 0 && ypos != 14) {
         createDoor(xpos, ypos, 2);
     } else {
@@ -252,6 +256,8 @@ function isOpen(xpos, ypos) {
         return false
     }
 }
+
+document.getElementById("engrenage").volume = '.1'
 
 function activateLever(xpos, ypos) {
     if (numberOfTry == 0) {
@@ -274,6 +280,7 @@ function activateLever(xpos, ypos) {
         //context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos] = { id: undefined, x: undefined, y: undefined, usages: [] }
+    document.getElementById("engrenage").play()
     for (let index = 0; index < map.length; index++) {
         if (map[index].x == xpos && map[index].y == ypos) {
             for (let i = 0; i < map[index].usages.length; i++) {
@@ -299,6 +306,7 @@ function desactivateLever(xpos, ypos) {
         context.drawImage(image, xpos * 100 - 10, ypos * 100, obstacle.size, obstacle.size)
     }
     obstaclesArray[ypos * 15 + xpos].id = 1
+    document.getElementById("engrenage").play()
     for (let index = 0; index < map.length; index++) {
         if (map[index].x == xpos && map[index].y == ypos) {
             for (let i = 0; i < map[index].usages.length; i++) {

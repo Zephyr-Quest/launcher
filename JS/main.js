@@ -144,13 +144,26 @@ $(window).keyup(function(e) { // Key stop push
         player.backward = false;
         drawPlayerWait('backward', player.x, player.y)
     }
-
 })
 
 
 /**
  * !ANIMATION PLAYER
  */
+let walkCount = 1
+
+document.getElementById("bruits_pas_1").volume = "0.3"
+document.getElementById("bruits_pas_2").volume = ".3"
+
+function soundWalk() {
+    if (walkCount == 1) {
+        document.getElementById("bruits_pas_1").play()
+        walkCount = 0
+    } else {
+        document.getElementById("bruits_pas_2").play()
+        walkCount = 1
+    }
+}
 
 function animationChoose() {
     if (state == 0) {
@@ -207,6 +220,7 @@ function drawPlayerInDaGame(goTo) {
 function updateStageObject() {
     if (player.left && player.x - player.moveSize > 0) {
         if (player.cooX % 15 != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 3 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 2 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 1 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id != 0) {
+            soundWalk()
             animationChoose()
             clearPreviousPosition()
             player.x -= player.moveSize;
@@ -216,6 +230,7 @@ function updateStageObject() {
     }
     if (player.right && player.x + player.moveSize + player.radius < canvas.getAttribute('width')) {
         if (player.cooX % 15 != 14 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 3 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 2 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 1 && obstaclesArray[player.cooY * 15 + player.cooX + 1].id != 0) {
+            soundWalk()
             animationChoose()
             clearPreviousPosition()
             player.x += player.moveSize;
@@ -225,6 +240,7 @@ function updateStageObject() {
     }
     if (player.forward && player.y - player.moveSize > 0) {
         if (player.cooY % 15 != 0 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 3 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 2 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 1 && obstaclesArray[(player.cooY - 1) * 15 + player.cooX].id != 0) {
+            soundWalk()
             animationChoose()
             clearPreviousPosition()
             player.y -= player.moveSize;
@@ -234,6 +250,7 @@ function updateStageObject() {
     }
     if (player.backward && player.y + player.moveSize < canvas.getAttribute('height')) {
         if (player.cooY % 15 != 14 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 3 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 2 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 1 && obstaclesArray[(player.cooY + 1) * 15 + player.cooX].id != 0) {
+            soundWalk()
             clearPreviousPosition()
             animationChoose()
             player.y += player.moveSize;
