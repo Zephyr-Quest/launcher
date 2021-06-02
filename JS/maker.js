@@ -35,12 +35,13 @@ function initMaker() {
     if (count == 0) {
         maker_button.innerHTML = "PLAY"
         maker_panel.style.display = "flex";
-        document.getElementById("obstacles").style.zIndex = "100"
         maker_panel.style.marginLeft = "calc(50vw - 50vh)";
         playing = false
         count = 1
+        document.getElementById("obstacles").style.zIndex = "100"
         document.getElementById("bouton_commande").style.display = "none";
         document.getElementById("bottom_line").style.display = "none";
+        document.getElementById("instructions").style.display = "flex";
 
     } else {
         maker_button.innerHTML = "MAKE"
@@ -50,6 +51,7 @@ function initMaker() {
         document.getElementById("obstacles").style.zIndex = "0"
         document.getElementById("bottom_line").style.display = "flex";
         document.getElementById("bouton_commande").style.display = "flex";
+        document.getElementById("instructions").style.display = "none";
         count = 0
         cancelled = false
         getStarted()

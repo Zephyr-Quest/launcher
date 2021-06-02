@@ -344,4 +344,29 @@ td {
           transform: translateX(-50%) translateY(-50%);
   border: black solid 2px;
 }
+
+.instructions_maker {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 0;
+  position: absolute;
+  margin-top: 14vh;
+  width: 25vh;
+  background-color: rgba(252, 252, 252, 0.781);
+  border: white 2px solid;
+  margin-left: 75vw;
+  padding: 20px;
+  font-weight: bold;
+  font-family: 'KoHo', sans-serif;
+  color: black;
+  text-align: justify;
+}
+
+.instructions_maker ul {
+  padding: 0;
+  list-style: none;
+}
 /*# sourceMappingURL=style.css.map */
