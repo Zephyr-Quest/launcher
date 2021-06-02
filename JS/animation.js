@@ -382,9 +382,3 @@ function gameLostAnimation() {
         document.getElementById("gamelost").style.display = "none"
     }, 1000);
 }
-/**
- * !NUMBER OF TORCHES 
- */
-/**
- * !NEXT LEVEL
- */

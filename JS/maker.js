@@ -3,7 +3,7 @@
  */
 
 const SIZE_MAP = 15
-
+let making = false
 
 let clicked = true
 
@@ -15,6 +15,8 @@ let lever_button = document.getElementById("add_button")
 let hole_button = document.getElementById("add_hole")
 let torch_button = document.getElementById("add_torch")
 let erase_button = document.getElementById("erase")
+let save_button = document.getElementById("disquette")
+
 let wallTest = false,
     doorTest = false,
     leverTest = false,
@@ -28,8 +30,38 @@ lever_button.addEventListener("click", function() { if (clicked == true) { addLe
 hole_button.addEventListener("click", function() { if (clicked == true) { addHole() } })
 torch_button.addEventListener("click", function() { if (clicked == true) { addTorch() } })
 erase_button.addEventListener("click", function() { if (clicked == true) { erase() } })
+save_button.addEventListener("click", function() { if (clicked == true) { savemapMaker() } })
 document.getElementById("resetMaker").addEventListener("click", function() { if (clicked == true) { resetMaker() } })
+document.getElementById("cancel_save").addEventListener("click", function() {
+    clicked = true;
+    document.getElementById("askForSave").style.display = "none";
+})
+document.getElementById("save_save").addEventListener("click", function() { if (clicked == false) { sendToDB() } })
 let count = 0
+
+
+function savemapMaker() {
+    document.getElementById("askForSave").style.display = "flex";
+    clicked = false
+}
+
+function sendToDB() {
+    let name = document.getElementById("nameOfMap").value
+    if (name == "") {
+        document.getElementById("gamelost").innerHTML = "PLEASE NAME YOUR MAP"
+        document.getElementById("gamelost").style.zIndex = "101"
+        document.getElementById("gamelost").style.display = "flex"
+        setTimeout(() => {
+            document.getElementById("gamelost").style.display = "none"
+            document.getElementById("gamelost").style.zIndex = "100"
+            document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+        }, 1000);
+    } else {
+        uploadCurrentMap(name, "MOI")
+        clicked = true;
+        document.getElementById("askForSave").style.display = "none";
+    }
+}
 
 function initMaker() {
     if (count == 0) {
@@ -42,6 +74,7 @@ function initMaker() {
         document.getElementById("bouton_commande").style.display = "none";
         document.getElementById("bottom_line").style.display = "none";
         document.getElementById("instructions").style.display = "flex";
+        making = true
 
     } else {
         maker_button.innerHTML = "MAKE"
@@ -52,6 +85,9 @@ function initMaker() {
         document.getElementById("bottom_line").style.display = "flex";
         document.getElementById("bouton_commande").style.display = "flex";
         document.getElementById("instructions").style.display = "none";
+        document.getElementById("askForSave").style.display = "none";
+
+        making = false
         count = 0
         cancelled = false
         getStarted()
@@ -394,10 +430,11 @@ function toItemsArray(obstacles) {
 function uploadCurrentMap(name, author) {
     // The map object
     const map = {
-            name,
-            author,
-            items: toItemsArray(obstaclesArray)
-        }
+        name,
+        author,
+        items: toItemsArray(obstaclesArray)
+    }
+    console.log(map)
         // Upload this map to the server
     uploadNewMap(map)
         .then(() => console.log('Map uploaded !'))

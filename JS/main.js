@@ -68,7 +68,8 @@ var enterKey = 13;
  */
 
 $(window).keydown(function(e) { // Key pushed
-    if (alive == false || playing == false) { return false }
+    if (making == true) { return true }
+    if ((alive == false || playing == false)) { return false }
     if (this.className === 'hold') { return false; }
     this.className = 'hold';
     var keyCode = e.keyCode;
@@ -77,21 +78,29 @@ $(window).keydown(function(e) { // Key pushed
         player.right = false;
         player.backward = false;
         player.forward = false;
+        updateStageObject()
+        checkTorch()
     } else if (keyCode == upKey) {
         player.left = false;
         player.right = false;
         player.backward = false;
         player.forward = true;
+        updateStageObject()
+        checkTorch()
     } else if (keyCode == rightKey) {
         player.left = false;
         player.right = true;
         player.backward = false;
         player.forward = false;
+        updateStageObject()
+        checkTorch()
     } else if (keyCode == downKey) {
         player.left = false;
         player.right = false;
         player.backward = true;
         player.forward = false;
+        updateStageObject()
+        checkTorch()
     } else if (keyCode == enterKey) {
         player.left = false;
         player.right = false;
@@ -112,9 +121,10 @@ $(window).keydown(function(e) { // Key pushed
         if (player.cooX != 0 && obstaclesArray[player.cooY * 15 + player.cooX - 1].id == 1) {
             activateLever(player.cooX - 1, player.cooY)
         }
-    } else { return false }
-    updateStageObject()
-    checkTorch()
+        updateStageObject()
+        checkTorch()
+    }
+
 });
 
 $(window).keyup(function(e) { // Key stop push

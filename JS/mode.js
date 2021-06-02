@@ -19,6 +19,7 @@ window.onload = () => {
 }
 
 function getStarted() {
+    making = false
     player.x = startX
     player.y = startY
     player.cooX = 0

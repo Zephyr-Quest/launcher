@@ -39,7 +39,6 @@ function uploadNewMap(map) {
         const options = {
             method: 'POST',
             body: JSON.stringify(map.items),
-            credentials: "include",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
