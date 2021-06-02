@@ -360,13 +360,17 @@ td {
         margin: 0;
     }
     div {
+        padding-top: 20px;
         display: flex;
         flex-direction: row;
         button {
-            width: 50%;
+            width: calc(50% - 10px);
             color: black;
             border: #f5b815 solid 2px;
             padding: 10px;
+        }
+        #cancel_save {
+            margin-left: 20px;
         }
     }
 }

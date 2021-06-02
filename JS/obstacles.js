@@ -199,13 +199,13 @@ function lightsOnPlayer() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, x * 2, y * 2);
     cutCircle(ctx, player.x, player.y, light.width / 2)
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-    gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
-    gradient.addColorStop(0, "transparent");
-    gradient.addColorStop(1, "black");
-    ctx.fillStyle = gradient;
-    ctx.fill();
+        /*ctx.beginPath();
+        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+        gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "black");
+        ctx.fillStyle = gradient;
+        ctx.fill();*/
     drawLightsBack()
 }
 

@@ -5,26 +5,26 @@ var tempIdx = 0
 
 function setLightsBackgroundSmall(x, y) {
     cutCircle(ctx, x, y, light.background_small)
-    ctx.beginPath();
-    ctx.globalCompositeOperation = "source-over";
-    ctx.arc(x, y, light.background_small, 0, 2 * Math.PI);
-    gradient = ctx.createRadialGradient(x, y, 0, x, y, light.background_small);
-    gradient.addColorStop(0, "transparent");
-    gradient.addColorStop(1, "rgba(0,0,0,1)");
-    ctx.fillStyle = gradient;
-    ctx.fill();
+        /*ctx.beginPath();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.arc(x, y, light.background_small, 0, 2 * Math.PI);
+        gradient = ctx.createRadialGradient(x, y, 0, x, y, light.background_small);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "rgba(0,0,0,1)");
+        ctx.fillStyle = gradient;
+        ctx.fill();*/
 }
 
 function setLightsBackgroundBig(x, y) {
     cutCircle(ctx, x, y, light.background_big)
-    ctx.beginPath();
-    ctx.arc(x, y, light.background_big, 0, 2 * Math.PI);
-    ctx.globalCompositeOperation = "source-over";
-    gradient = ctx.createRadialGradient(x, y, 0, x, y, light.background_big);
-    gradient.addColorStop(0, "transparent");
-    gradient.addColorStop(1, "rgba(0,0,0,1)");
-    ctx.fillStyle = gradient;
-    ctx.fill();
+        /*ctx.beginPath();
+        ctx.arc(x, y, light.background_big, 0, 2 * Math.PI);
+        ctx.globalCompositeOperation = "source-over";
+        gradient = ctx.createRadialGradient(x, y, 0, x, y, light.background_big);
+        gradient.addColorStop(0, "transparent");
+        gradient.addColorStop(1, "rgba(0,0,0,1)");
+        ctx.fillStyle = gradient;
+        ctx.fill();*/
 }
 
 function drawLightsBack() {
@@ -38,12 +38,12 @@ function drawLightsBack() {
     setLightsBackgroundSmall(170, y * 2 - 330)
     setLightsBackgroundSmall(x * 2 - 170, y * 2 - 330)
 
-    setLightsBackgroundBig(x, 200)
-    setLightsBackgroundBig(x, y * 2 - 200)
-    setLightsBackgroundBig(220, y + 150)
-    setLightsBackgroundBig(x * 2 - 220, y + 150)
-    setLightsBackgroundBig(220, y - 150)
-    setLightsBackgroundBig(x * 2 - 220, y - 150)
+    setLightsBackgroundBig(x + 2, 210)
+    setLightsBackgroundBig(x - 5, y * 2 - 210)
+    setLightsBackgroundBig(210, y + 150)
+    setLightsBackgroundBig(x * 2 - 210, y + 150)
+    setLightsBackgroundBig(210, y - 150)
+    setLightsBackgroundBig(x * 2 - 210, y - 150)
 
 
     /*ctx.clearRect(0, y - 1.5 * player.moveSize, 5 * player.moveSize, 3 * player.moveSize)

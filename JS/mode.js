@@ -25,7 +25,7 @@ function getStarted() {
     player.cooX = 0
     player.cooY = 7
     clearMap()
-    getMapByName("map2")
+    getMapByName("map1")
         .then((data) => {
             map = data.items
             console.log(data);
@@ -51,7 +51,7 @@ function start() {
         player.y = startY
         player.cooX = 0
         player.cooY = 7
-        light.background_big = 110
+        light.background_big = 140
         light.background_small = 90
         const img = new Image();
         img.src = 'img/right/character_stopped.png';
@@ -62,13 +62,13 @@ function start() {
         ctx.globalCompositeOperation = "source-over";
         ctx.fillRect(0, 0, 2 * x, 2 * y);
         cutCircle(ctx, player.x, player.y, light.width / 2)
-        gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
-        gradient.addColorStop(0, "transparent");
-        gradient.addColorStop(1, "black");
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = gradient;
-        ctx.fill();
+            /*gradient = ctx.createRadialGradient(player.x, player.y, 40, player.x, player.y, light.width / 2);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(1, "black");
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();*/
         initializeObstacles()
         drawLightsBack()
 
@@ -140,14 +140,14 @@ function reset() {
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, 2 * x, 2 * y);
         cutCircle(ctx, player.x, player.y, light.width / 2)
-        gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
-        gradient.addColorStop(0, "transparent");
-        gradient.addColorStop(1, "black");
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = gradient;
-        ctx.fill();
-        ctx.stroke();
+            /*gradient = ctx.createRadialGradient(player.x, player.y, 60, player.x, player.y, light.width / 2);
+            gradient.addColorStop(0, "transparent");
+            gradient.addColorStop(1, "black");
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, light.width / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.stroke();*/
         const img = new Image();
         img.src = 'img/right/character_stopped.png';
         ctx.drawImage(img, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2)
@@ -170,6 +170,7 @@ function checkEnd() {
     if (player.cooX == endX && player.cooY == endY) {
         console.log("Bien joué ! (FIN)")
         playing = false
+        document.getElementById("title_win").innerHTML = "WELL DONE !<br>MAP FINIHED IN " + minute + ":" + second
         document.getElementById("gamewin").style.display = "flex"
         document.getElementById("timer").innerHTML = minute + ":" + second
         clearInterval(timeVar)
@@ -272,11 +273,15 @@ function dayNight() {
         light.background_small = 40000000
         sun()
         lightsOnPlayer()
+        drawPlayerWait('right', player.x, player.y)
+
     } else {
         daynighticon.className = "fas fa-sun"
         light.width = saveLightWidth
         light.background_big = saveLightBig
         light.background_small = saveLightSmall
         lightsOnPlayer()
+        drawPlayerWait('right', player.x, player.y)
+
     }
 }

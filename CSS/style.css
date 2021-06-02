@@ -380,6 +380,7 @@ td {
 }
 
 #askForSave div {
+  padding-top: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -390,10 +391,14 @@ td {
 }
 
 #askForSave div button {
-  width: 50%;
+  width: calc(50% - 10px);
   color: black;
   border: #f5b815 solid 2px;
   padding: 10px;
+}
+
+#askForSave div #cancel_save {
+  margin-left: 20px;
 }
 
 .instructions_maker {
