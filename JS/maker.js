@@ -4,6 +4,9 @@
 
 const SIZE_MAP = 15
 
+
+let clicked = true
+
 let maker_button = document.getElementById("maker_button")
 let maker_panel = document.getElementById("container_make")
 let wall_button = document.getElementById("add_wall")
@@ -19,13 +22,13 @@ let wallTest = false,
     torchTest = false,
     eraseTest = false
 maker_button.addEventListener("click", initMaker)
-wall_button.addEventListener("click", addWall)
-door_button.addEventListener("click", addDoor)
-lever_button.addEventListener("click", addLever)
-hole_button.addEventListener("click", addHole)
-torch_button.addEventListener("click", addTorch)
-erase_button.addEventListener("click", erase)
-document.getElementById("resetMaker").addEventListener("click", resetMaker)
+wall_button.addEventListener("click", function() { if (clicked == true) { addWall() } })
+door_button.addEventListener("click", function() { if (clicked == true) { addDoor() } })
+lever_button.addEventListener("click", function() { if (clicked == true) { addLever() } })
+hole_button.addEventListener("click", function() { if (clicked == true) { addHole() } })
+torch_button.addEventListener("click", function() { if (clicked == true) { addTorch() } })
+erase_button.addEventListener("click", function() { if (clicked == true) { erase() } })
+document.getElementById("resetMaker").addEventListener("click", function() { if (clicked == true) { resetMaker() } })
 let count = 0
 
 function initMaker() {
@@ -419,7 +422,6 @@ function findItem(id) {
  * MOVES 
  */
 let largeurCase = 30
-let clicked = true
 
 function handleMouseMove(e) {
     mouseX = parseInt(e.clientX - offsetX);
