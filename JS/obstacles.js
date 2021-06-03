@@ -268,7 +268,7 @@ function activateLever(xpos, ypos) {
         setTimeout(() => {
             document.getElementById("gamelost").style.display = "none"
             document.getElementById("gamelost").style.zIndex = "100"
-            document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+            document.getElementById("gamelost").innerHTML = "GAME LOST !"
         }, 1000);
         return false
     }

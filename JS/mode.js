@@ -15,11 +15,44 @@ function waitingBeforeStart() {
     animWaitingMaze()
 
 }
+var canvasOffsett = $("#obstacles").offset();
+var offsetYY = canvasOffsett.top;
+// console.log(offsetYY)
+
 window.onload = () => {
     document.getElementById("music").volume = '0.2'
     document.getElementById("music").play()
-    getStarted()
+        //console.log(offsetX, offsetY)
+    if (offsetYY != 276) {
+        canvas.style.display = 'none'
+        canvasObstacles.style.display = 'none'
+    } else {
+        getStarted()
+    }
 }
+
+
+onWindowSize = () => {
+    //console.log(offsetX, offsetY)
+    offsetYY = canvasOffsett.top;
+    // console.log(offsetYY)
+    if (offsetYY != 276) {
+        canvas.style.display = 'none'
+        canvasObstacles.style.display = 'none'
+        document.getElementById("gamelost").innerHTML = "GAME NOT AVAILABLE ! YOU NEED A 16:9 SCREEN AND A RESOLUTION OF 100% (USE ISEN COMPUTER)"
+        document.getElementById("gamelost").style.display = "flex"
+        setTimeout(() => {
+            document.getElementById("gamelost").style.display = "none"
+            document.getElementById("gamelost").innerHTML = "GAME LOST !"
+
+        }, 1000);
+    } else {
+        canvas.style.display = 'flex'
+        canvasObstacles.style.display = 'flex'
+    }
+}
+
+window.addEventListener('resize', onWindowSize, false)
 
 function getStarted() {
 
@@ -29,15 +62,15 @@ function getStarted() {
     player.cooX = 0
     player.cooY = 7
     clearMap()
-        // getMapByName("map1")
-        //     .then((data) => {
-        //         map = data.items
-        //         console.log(data);
-        // solutions=data.solutions
-        //     })
-        //     .catch((err) => {
-        //         console.error(err);
-        //     })
+    getMapByName("map1")
+        .then((data) => {
+            map = data.items
+            console.log(data);
+            solutions = data.solutions
+        })
+        .catch((err) => {
+            console.error(err);
+        })
     waitingBeforeStart()
 }
 /**

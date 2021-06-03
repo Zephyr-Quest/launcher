@@ -54,7 +54,7 @@ function sendToDB() {
         setTimeout(() => {
             document.getElementById("gamelost").style.display = "none"
             document.getElementById("gamelost").style.zIndex = "100"
-            document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+            document.getElementById("gamelost").innerHTML = "GAME LOST !"
         }, 1000);
     } else {
         uploadCurrentMap(name, "MOI")
@@ -223,7 +223,7 @@ let IsAnyDoorAvailable = () => {
     document.getElementById("gamelost").style.display = "flex"
     setTimeout(() => {
         document.getElementById("gamelost").style.display = "none"
-        document.getElementById("gamelost").innerHTML = "NO DOOR AVAILABLE"
+        document.getElementById("gamelost").innerHTML = "GAME LOST !"
 
     }, 1000);
     return false
@@ -460,13 +460,14 @@ function findItem(id) {
 /**
  * MOVES 
  */
-let largeurCase = 31
+let largeurCase = 30
+
 
 function handleMouseMove(e) {
     mouseX = parseInt(e.clientX - offsetX);
     mouseY = parseInt(e.clientY - offsetY);
-    // console.log(mouseX, mouseY)
-    //!Create a wall
+    console.log(mouseX, mouseY)
+        //!Create a wall
     if (clicked && wallTest == true) {
         for (let index = 0; index < 15; index++) {
             if (largeurCase * (index) < mouseX && mouseX < largeurCase * (index + 1)) {
